@@ -26,8 +26,8 @@ help_function() {
     echo "==========================================================================================================="
     echo "Usage: $0 <file_name> <command> [options]"
     echo "Commands:"
-    echo "  --h, --help              Display this help screen"
-    echo "  --i, --info              Display highest adjusted and raw usage"
+    echo "  -h, --help               Display this help screen"
+    echo "  -i, --info               Display highest adjusted and raw usage"
     echo "  --sort <column>          Sort data by the specified column"
     echo "    Pokemon                Sort data by Pokemon name"
     echo "    Usage%                 Sort data by Usage%"
@@ -109,10 +109,10 @@ filter_function() {
 }
 
 case "$COMMAND" in
-    --h|--help)
+    -h|--help)
         help_function
         ;;
-    --i|--info)
+    -i|--info)
         info_function
         ;;
     --sort)
