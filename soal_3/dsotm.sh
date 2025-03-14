@@ -3,7 +3,7 @@
 clear
 
 if [[ "$1" != --play=* ]]; then
-    echo "Usage: ./coba5.sh --play=\"<Track>\""
+    echo "Usage: ./dsotm.sh --play=\"<Track>\""
     exit 1
 fi
 
