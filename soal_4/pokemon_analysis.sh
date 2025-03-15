@@ -6,9 +6,9 @@ if [ "$#" -lt 2 ]; then
     exit 1
 fi
 
-FILE=$1
-COMMAND=$2
-OPTION=$3
+file=$1
+command=$2
+option=$3
 
 help_function() {
     RED='\033[1;31m'          
@@ -52,63 +52,81 @@ help_function() {
 
 info_function() {
     echo "==============================================================="
-    echo "Summary of $FILE"
+    echo "Summary of $file"
     echo "==============================================================="
     echo "Highest Adjusted Usage:"
-    tail -n +2 "$FILE" | sort -t, -k2 -nr | head -1
+    tail -n +2 "$file" | sort -t, -k2 -nr | head -1
     echo "---------------------------------------------------------------"
     echo "Highest Raw Usage:"
-    tail -n +2 "$FILE" | sort -t, -k3 -nr | head -1
+    tail -n +2 "$file" | sort -t, -k3 -nr | head -1
     echo "---------------------------------------------------------------"
 }
 
 sort_function() {
-    HEADER=$(head -1 "$FILE")
-    echo "$HEADER"
+    header=$(head -1 "$file")
+    echo "$header"
 
-    if [ -z "$OPTION" ]; then
-        echo "Error: No sorting column provided"
+    if [ -z "$option" ]; then
+        echo "Error: No sorting column provided."
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
         exit 1
     fi
 
-    if ! echo "$HEADER" | grep -q -w "$OPTION"; then
-        echo "Error: Column '$OPTION' not found in file."
+    if ! echo "$header" | grep -q -w "$option"; then
+        echo "Error: Column '$option' not found in file."
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
         exit 1
     fi
 
-    COLUMN=$(echo "$HEADER" | tr ',' '\n' | grep -n -w "$OPTION" | cut -d: -f1 | head -1)
-    if [ "$OPTION" == "Pokemon" ]; then
-        tail -n +2 "$FILE" | sort -t, -k1,1
+    COLUMN=$(echo "$header" | tr ',' '\n' | grep -n -w "$option" | cut -d: -f1 | head -1)
+    if [ "$option" == "Pokemon" ]; then
+        tail -n +2 "$file" | sort -t, -k1,1
     else
-        tail -n +2 "$FILE" | sort -t, -k"$COLUMN" -nr
+        tail -n +2 "$file" | sort -t, -k"$COLUMN" -nr
     fi
 }
 
 search_function() {
-    HEADER=$(head -1 "$FILE")
-    echo "$HEADER"
+    header=$(head -1 "$file")
+    echo "$header"
 
-    if [ -z "$OPTION" ]; then
+    if [ -z "$option" ]; then
         echo "Error: No search term provided"
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
         exit 1
     fi 
 
-    grep -i "^$OPTION" "$FILE"   
+    search=$(grep -i "^$option" "$file")
+    echo "$search"
+
+    if [ -z "$search" ]; then
+        echo "Error: '$option' not found in file."
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
+        exit 1
+    fi
 }
 
 filter_function() {
-    HEADER=$(head -1 "$FILE")
-    echo "$HEADER"
+    header=$(head -1 "$file")
+    echo "$header"
 
-    if [ -z "$OPTION" ]; then
+    if [ -z "$option" ]; then
         echo "Error: No filter type provided"
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
         exit 1
     fi
 
-    awk -F, -v type="$OPTION" '$4 == type || $5 == type' "$FILE" | sort -t, -k2 -nr
+    filter=$(awk -F, -v type="$option" '$4 == type || $5 == type' "$file" | sort -t, -k2 -nr)
+    echo "$filter"
+
+    if [ -z "$filter" ]; then
+        echo "Error: '$option' not found in file."
+        echo "Use '$0 <file_name> -h or --help' to view the list of commands."
+        exit 1
+    fi
 }
 
-case "$COMMAND" in
+case "$command" in
     -h|--help)
         help_function
         ;;
