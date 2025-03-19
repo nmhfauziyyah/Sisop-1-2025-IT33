@@ -243,10 +243,10 @@ echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRA
    - Ex : **3700 MB**
 ## G. On Fate's Approach
 Pemantauan yang teratur dan terjadwal sangat penting untuk mendeteksi anomali. **Crontab manager (suatu menu)** memungkinkan "Player" untuk mengatur jadwal pemantauan sistem. 
-Hal yang harus ada di fungsionalitas menu:__
-**- Add/Remove CPU [Core] Usage**__
-**- Add/Remove RAM [Fragment] Usage**__
-**- View Active Jobs**__
+Hal yang harus ada di fungsionalitas menu: <br>
+**- Add/Remove CPU [Core] Usage** <br>
+**- Add/Remove RAM [Fragment] Usage**<br>
+**- View Active Jobs**<br>
 Lokasi shell script: ``./scripts/manager.sh``
 ## Penyelesaian
 ```
