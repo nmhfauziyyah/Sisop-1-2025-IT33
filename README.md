@@ -41,14 +41,14 @@ Output
 
 ### Soal 2
 ## Oleh : Ni'mah Fauziyyah A
+## A. First Step in a New World
 ## Soal
 ``
 Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
 ``
 ## Jawaban
-## A. First Step in a New World
 Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua **shell script**, **login.sh dan register.sh**, yang dimana database **“Player” disimpan di /data/player.csv**. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu **email dan password.**
-## Penyelesaian A
+## Penyelesaian
 ## Membuat shell script ``register.sh``
 ```
 #!/bin/bash
@@ -102,15 +102,15 @@ echo "❌ Invalid email or password!"
 exit 1
 clear
 ```
-Membuat sistem login yang hanya menerima input email dan password, lalu email dan password tersebut diperiksa apakah cocok dengan data yang ada di file data/player.csv
+Membuat sistem login yang hanya menerima input email dan password, lalu email dan password tersebut diperiksa apakah cocok dengan data yang ada di file ```data/player.csv```
 
 ## B. Radiant Genesis
 ## Soal
 ``
-Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu validasi email dan password**. Email harus memiliki format yang benar dengan tanda @ dan titik, sementara password harus memiliki minimal 8 karakter, setidaknya satu huruf kecil, satu huruf besar, dan satu angka untuk menjaga keamanan data di dunia “Arcaea”.
+Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu validasi email dan password.** Email harus memiliki format yang benar dengan tanda @ dan titik, sementara password harus memiliki minimal 8 karakter, setidaknya satu huruf kecil, satu huruf besar, dan satu angka untuk menjaga keamanan data di dunia “Arcaea”.
 ``
-## Penyelesaian B
-1.) Validasi email dan password sudah berada di ``register.sh`` (kode diatas) di bagian :
+## Penyelesaian
+Validasi email dan password sudah berada di ``register.sh`` :
 ```
 # Validasi email
 [[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]] || { echo "❌ Email salah, Coba lagi!"; exit 1; }
@@ -118,7 +118,13 @@ Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu 
 # Validasi password (minimal 8 karakter)
 [[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }
 ```
-
+Dari kode tersebut terdapat 2 validasi, yaitu :
+1) Validasi Email yang harus menggunakan format tanda @ dan titik dengan command :
+   ```[[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]] || { echo "❌ Email salah, Coba lagi!"; exit 1; }```
+2) Validasi password yang harus memiliki minimal 8 karakter
+   ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
+Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
+ 
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
