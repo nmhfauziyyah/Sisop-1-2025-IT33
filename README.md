@@ -110,6 +110,3 @@ Kendala saat menginstall file CSV
 ![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
 
 ### Soal 4
-- Kendala saat sort Pokemon, sebelumnya sortingnya Z-A
-- Solusi
-  
