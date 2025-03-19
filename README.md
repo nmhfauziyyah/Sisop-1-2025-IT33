@@ -241,7 +241,108 @@ echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRA
    ```
    - Mengambil jumlah memori yang tersedia dari ``free -m`` kolom ke-7.
    - Ex : **3700 MB**
-   
+## G. On Fate's Approach
+Pemantauan yang teratur dan terjadwal sangat penting untuk mendeteksi anomali. **Crontab manager (suatu menu)** memungkinkan "Player" untuk mengatur jadwal pemantauan sistem. 
+Hal yang harus ada di fungsionalitas menu:
+**- Add/Remove CPU [Core] Usage**
+**- Add/Remove RAM [Fragment] Usage**
+**- View Active Jobs**
+Lokasi shell script: ``./scripts/manager.sh``
+## Penyelesaian
+```
+#!/bin/bash
+
+LOG_DIR="./logs"
+
+while true; do
+    echo "================"
+    echo " SELAMAT DATANG "
+    echo "================"
+    echo ""
+    echo "1) Tambah CPU Monitoring"
+    echo "2) Hapus CPU Monitoring"
+    echo "3) Tambah RAM Monitoring"
+    echo "4) Hapus RAM Monitoring"
+    echo "5) Tampilkan Active Jobs"
+    echo "6) Exit"
+    read -p "Pilih opsi: " choice
+    echo ""
+    
+    case $choice in
+        1) 
+            (crontab -l; echo "* * * * * bash $(pwd)/scripts/core_monitor.sh >> $LOG_DIR/core.log") | crontab - 
+            echo "✅ CPU Monitoring telah ditambahkan ke crontab."
+            ;;
+        2) 
+            crontab -l | grep -v "core_monitor.sh" | crontab - 
+            echo "❌ CPU Monitoring telah dihapus dari crontab."
+            ;;
+        3) 
+            (crontab -l; echo "* * * * * bash $(pwd)/scripts/frag_monitor.sh >> $LOG_DIR/fragment.log") | crontab - 
+            echo "✅ RAM Monitoring telah ditambahkan ke crontab."
+            ;;
+        4) 
+            crontab -l | grep -v "frag_monitor.sh" | crontab - 
+            echo "❌ RAM Monitoring telah dihapus dari crontab."
+            ;;
+        5) 
+            echo "📋 Menampilkan Active Jobs..."
+            crontab -l 
+            ;;
+        6) 
+            echo "🚪 Keluar dari program..."
+            exit  # Keluar sepenuhnya
+            ;;
+        *) 
+            echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
+            ;;
+    esac
+    echo ""
+done
+```
+## Penjelasan
+``1)`` Menambahkan monitoring CPU ke ``crontab``, supaya script ``core_monitor.sh`` dijalankan setiap menit.
+   ```
+   (crontab -l; echo "* * * * * bash $(pwd)/scripts/core_monitor.sh >> $LOG_DIR/core.log") | crontab -
+   ```
+- ``crontab -l`` → Ambil daftar crontab yang ada.
+- ``echo "* * * * * bash ..."`` → Tambahkan perintah baru yang berjalan setiap menit.
+- ``| crontab -`` → Simpan kembali ke crontab.
+- Output akan masuk ke ``logs/core.log.``
+
+``2)`` Menghapus CPU monitoring dari ``crontab.``
+```
+crontab -l | grep -v "core_monitor.sh" | crontab -
+```
+Mengambil semua baris crontab, lalu menghilangkan (``grep -v``) dari baris yang mengandung ``core_monitor.sh`` dan menyimpan ulang.
+
+``3)`` Menambahkan monitoring RAM (fragmentasi) ke crontab, juga setiap menit.
+```
+(crontab -l; echo "* * * * * bash $(pwd)/scripts/frag_monitor.sh >> $LOG_DIR/fragment.log") | crontab -
+```
+Sama halnya dengan pilihan 1), teteapi ini menggunakan ``frag_monitor.sh`` dan menyimpan output ke ``fragment.log.``
+
+``4)`` Menghapus RAM monitoring dari crontab.
+```
+crontab -l | grep -v "frag_monitor.sh" | crontab -
+```
+Menghapus baris cron yang memanggil ``frag_monitor.sh``
+
+``5)`` Menampilkan daftar ``active jobs`` yang sudah ada di crontab.
+```
+crontab -l
+```
+Menampilkan semua jadwal cron yang aktif.
+``6)`` Keluar dari Program
+```
+exit
+```
+Menghentikan script
+``*)`` Jika input tidak sesuai 1–6, maka:
+```
+echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
+```
+Akan muncul peringatan bahwa input tidak valid
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
