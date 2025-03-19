@@ -120,7 +120,7 @@ Dari kode tersebut terdapat 2 validasi, yaitu :
    ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
 Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
 
-## C. Unceasing Spiri
+## C. Unceasing Spirit
 Karena diperlukan pengecekan keaslian “Player” yang aktif, maka diperlukan sistem untuk pencegahan duplikasi “Player”. **Jadikan sistem login/register tidak bisa memakai email yang sama (email = unique), tetapi tidak ada pengecekan tambahan untuk username.**
 ## Penyelesaian
 Menambahkan command untuk check tidak boleh memiliki email yang sama pada ```register.sh```
@@ -143,7 +143,53 @@ Ini untuk check lagi apakah sudah menggunakan **hashing sha256sum** untuk keraha
 ```
 password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 ```
+## E. The Brutality of Glass
+Setelah sukses login, "Player" perlu memiliki akses ke sistem pemantauan sumber daya. Sistem harus dapat melacak penggunaan **CPU (dalam persentase)** yang menjadi representasi “Core” di dunia “Arcaea”. Pastikan kalian juga bisa melacak “terminal” yang digunakan oleh “Player”, yaitu **CPU Model dari device mereka.** 
+Lokasi shell script: ``./scripts/core_monitor.sh``
+## Penyelesaian
+```
+#!/bin/bash
 
+mkdir -p ./logs
+
+LOG_FILE="./logs/core.log"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')  # Menghitung CPU yang dipakai (100% - idle)
+CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')
+
+echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
+```
+1) Membuat folder logs jika belum ada, untuk menyimpan file log.
+```
+mkdir -p ./logs
+```
+2) Menentukan lokasi file log, yaitu di folder logs dengan nama core.log.
+```
+LOG_FILE="./logs/core.log"
+```
+3) Menyimpan waktu saat ini dalam format YYYY-MM-DD HH:MM:SS ke dalam variabel TIMESTAMP.
+```
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+```
+4) ```CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')```
+- Command ``top -bn1`` menampilkan snapshot sekali (non-interaktif) tentang penggunaan sumber daya.
+- Lalu ``grep "Cpu(s)"`` akan mencari baris yang mengandung informasi CPU.
+- Kolom ke-8 (idle / ``id``) menunjukkan CPU yang tidak dipakai.
+- ``awk '{print 100 - $8}'`` akan menghitung CPU usage dengan mengurangkan 100 - idle.
+- Misal : idle 85.0, berarti CPU usage: 100 - 85.0 = 15%.
+5) ```CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')```
+- Perintah ``lscpu`` menampilkan informasi tentang CPU.
+- ``grep "Model name"`` mengambil baris yang berisi model CPU.
+- ``awk -F ':' '{print $2}'`` memisahkan teks dengan tanda ``:`` dan mengambil bagian kedua (isi modelnya).
+- ``sed 's/^[ \t]*//g'`` menghapus spasi/tab di awal baris.
+- ``tr -s ' '`` merapikan spasi agar tidak berlebihan.
+- Hasil Akhir akan menampilkan hanya nama prosesor :
+  ```Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz```
+6) ```echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null```
+- Menuliskan log ke file ``core.log`` dengan format:
+```[2025-03-20 17:40:52] - Core Usage [15.0%] - Terminal Model [Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz]```
+- ``2>/dev/null`` membuang error output jika ada.
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
