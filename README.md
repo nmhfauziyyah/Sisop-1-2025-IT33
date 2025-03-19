@@ -442,7 +442,7 @@ User akan diarahkan ke proses registrasi.<br>
 ```
 Kembali ke Crontab Manager? (y/n):
 ```
-Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop.
+Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop. <br>
 ``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).<br>
 ## Soal 3
 ## Soal 4
