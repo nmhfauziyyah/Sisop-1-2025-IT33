@@ -46,7 +46,78 @@ Output
 Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
 ``
 ## Jawaban
+## A. First Step in a New World
+Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua **shell script**, **login.sh dan register.sh**, yang dimana database **“Player” disimpan di /data/player.csv**. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu **email dan password.**
+## Penyelesaian A
+## Membuat shell script ``register.sh``
+```
+#!/bin/bash
 
+CSV_FILE="data/player.csv"
+echo "Name,Email,Password" > "$CSV_FILE"
+
+echo "==================="
+echo " SILAHKAN REGISTER "
+echo "==================="
+echo ""
+echo "Masukkan nama:"
+read -r name
+echo "Masukkan email:"
+read -r email
+echo "Masukkan password:"
+read -rs password
+echo
+
+# Hash password dan simpan
+echo "$name,$email,$(echo -n "$password" | sha256sum | awk '{print $1}')" >> "$CSV_FILE"
+
+echo "✅ Registrasi Berhasil!"
+```
+Program diatas diminta untuk input untuk email, username, dan password. Lalu, data akan disimpan ke dalam file data/player.csv dengan command ```echo "$name,$email,$(echo -n "$password" | sha256sum | awk '{print $1}')" >> "$CSV_FILE"```
+
+## Membuat shell script ``login.sh``
+```
+#!/bin/bash
+
+CSV_FILE="data/player.csv"
+
+# Cek file ada atau tidak
+[ ! -f "$CSV_FILE" ] && { echo "❌ Data tidak ditemukan!"; exit 1; }
+
+echo "=================="
+echo " SILAHKAN LOGIN! "
+echo "=================="
+echo ""
+echo "Masukkan email:"
+read -r email
+echo "Masukkan password:"
+read -rs password
+echo
+
+password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+
+grep -q ",$email,$password_hash" "$CSV_FILE" && { echo "✅ Login Berhasil!"; exit 0; }
+
+echo "❌ Invalid email or password!"
+exit 1
+clear
+```
+Membuat sistem login yang hanya menerima input email dan password, lalu email dan password tersebut diperiksa apakah cocok dengan data yang ada di file data/player.csv
+
+## B. Radiant Genesis
+## Soal
+``
+Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu validasi email dan password**. Email harus memiliki format yang benar dengan tanda @ dan titik, sementara password harus memiliki minimal 8 karakter, setidaknya satu huruf kecil, satu huruf besar, dan satu angka untuk menjaga keamanan data di dunia “Arcaea”.
+``
+## Penyelesaian B
+1.) Validasi email dan password sudah berada di ``register.sh`` (kode diatas) di bagian :
+```
+# Validasi email
+[[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]] || { echo "❌ Email salah, Coba lagi!"; exit 1; }
+
+# Validasi password (minimal 8 karakter)
+[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }
+```
 
 ## Soal 3
 ## Soal 4
