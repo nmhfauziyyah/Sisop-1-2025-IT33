@@ -71,4 +71,8 @@ Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk m
 
 ## Kendala
 ### Soal 1
+Kendala saat menginstall file CSV
+
+![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
+
 ### Soal 4
