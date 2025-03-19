@@ -5,6 +5,12 @@
 2. Revalina Erica Permatasari (5027241007)
 3. Kaisar Hanif Pratama (5027241029)
 
+## Daftar Isi
+1. [Soal 1](#soal-1)
+2. [Soal 2](#soal-2)
+3. [Soal 3](#soal-3)
+4. [Soal 4](#soal-4)
+
 ### Soal 1 
 ## Oleh : Kaisar Hanif Pratama
 a.) Pada soal 1 bagian a ini, Poppo ingin mencari tahu jumlah buku yang dibaca oleh Chris Hemsworth.
@@ -508,10 +514,10 @@ Output
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/a99e54fd-16c3-4260-9184-fea093f46382" />
 
-## Kendala
-### Soal 1
+### Kendala
+## Soal 1
 Kendala saat menginstall file CSV
 
 ![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
 
-### Soal 4
+## Soal 4
