@@ -11,8 +11,8 @@
 3. [Soal 3](#soal-3)
 4. [Soal 4](#soal-4)
 
-### Soal 1 
-## Oleh : Kaisar Hanif Pratama
+## Soal 1 
+### Oleh : Kaisar Hanif Pratama
 a.) Pada soal 1 bagian a ini, Poppo ingin mencari tahu jumlah buku yang dibaca oleh Chris Hemsworth.
 
 ![1a](https://github.com/user-attachments/assets/7a5d085b-d521-4b44-a48a-0d88a4a5f4a2)
@@ -45,17 +45,17 @@ Output
 
 ![3  Hasil 4](https://github.com/user-attachments/assets/724b1f8f-cbcb-4b98-bd61-efb7b64d54d7)
 
-### Soal 2
-## Oleh : Ni'mah Fauziyyah A
-## Soal
+## Soal 2
+### Oleh : Ni'mah Fauziyyah A
+### Soal
 ``
 Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
 ``
-## Jawaban
-## A. First Step in a New World
+### Jawaban
+### A. First Step in a New World
 Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua **shell script**, **login.sh dan register.sh**, yang dimana database **“Player” disimpan di /data/player.csv**. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu **email dan password.**
-## Penyelesaian
-## Membuat shell script ``register.sh``
+### Penyelesaian
+### Membuat shell script ``register.sh``
 ```
 #!/bin/bash
 
@@ -81,7 +81,7 @@ echo "✅ Registrasi Berhasil!"
 ```
 Program diatas diminta untuk input untuk email, username, dan password. Lalu, data akan disimpan ke dalam file data/player.csv dengan command ```echo "$name,$email,$(echo -n "$password" | sha256sum | awk '{print $1}')" >> "$CSV_FILE"```
 
-## Membuat shell script ``login.sh``
+### Membuat shell script ``login.sh``
 ```
 #!/bin/bash
 
@@ -108,9 +108,9 @@ clear
 ```
 Membuat sistem login yang hanya menerima input email dan password, lalu email dan password tersebut diperiksa apakah cocok dengan data yang ada di file ```data/player.csv```
 
-## B. Radiant Genesis
+### B. Radiant Genesis
 Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu validasi email dan password.** Email harus memiliki format yang benar dengan tanda @ dan titik, sementara password harus memiliki minimal 8 karakter, setidaknya satu huruf kecil, satu huruf besar, dan satu angka untuk menjaga keamanan data di dunia “Arcaea”.
-## Penyelesaian
+### Penyelesaian
 Validasi email dan password sudah berada di ``register.sh`` :
 ```
 # Validasi email
@@ -126,18 +126,18 @@ Dari kode tersebut terdapat 2 validasi, yaitu :
    ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
 Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
 
-## C. Unceasing Spirit
+### C. Unceasing Spirit
 Karena diperlukan pengecekan keaslian “Player” yang aktif, maka diperlukan sistem untuk pencegahan duplikasi “Player”. **Jadikan sistem login/register tidak bisa memakai email yang sama (email = unique), tetapi tidak ada pengecekan tambahan untuk username.**
-## Penyelesaian
+### Penyelesaian
 Menambahkan command untuk check tidak boleh memiliki email yang sama pada ```register.sh```
 ```
 grep -q ",$email," "$CSV_FILE" && { echo "❌ Email sudah terdaftar!"; exit 1; }
 ```
 Menggunakan ```grep``` untuk mengambil data dari ```CSV_FILE```
 
-## D. The Eternal Realm of Light
+### D. The Eternal Realm of Light
 Password adalah kunci akses ke dunia Arcaea. Untuk menjaga keamanan "Player", password perlu disimpan dalam bentuk yang tidak mudah diakses. Gunakan algoritma hashing **sha256sum** yang memakai static salt (bebas).
-## Penyelesaian
+### Penyelesaian
 Menambahkan command untuk menyimpan password dalam bentuk yang tidak mudah diakses
 ``register.sh``
 Ini langsung menyimpan ke ``CSV_FILE``
@@ -149,10 +149,10 @@ Ini untuk check lagi apakah sudah menggunakan **hashing sha256sum** untuk keraha
 ```
 password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 ```
-## E. The Brutality of Glass
+#3# E. The Brutality of Glass
 Setelah sukses login, "Player" perlu memiliki akses ke sistem pemantauan sumber daya. Sistem harus dapat melacak penggunaan **CPU (dalam persentase)** yang menjadi representasi “Core” di dunia “Arcaea”. Pastikan kalian juga bisa melacak “terminal” yang digunakan oleh “Player”, yaitu **CPU Model dari device mereka.** 
 Lokasi shell script: ``./scripts/core_monitor.sh``
-## Penyelesaian
+### Penyelesaian
 ```
 #!/bin/bash
 
@@ -166,7 +166,7 @@ CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*
 
 echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
 ```
-## Penjelasan
+### Penjelasan
 1) Membuat folder logs jika belum ada, untuk menyimpan file log.
 ```
 mkdir -p ./logs
@@ -203,10 +203,10 @@ TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 - Menuliskan log ke file ``core.log`` dengan format:
 ```[2025-03-20 17:40:52] - Core Usage [15.0%] - Terminal Model [Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz]```
 - ``2>/dev/null`` membuang error output jika ada.
-## F. In Grief and Great Delight
+### F. In Grief and Great Delight
 Selain CPU, “fragments” juga perlu dipantau untuk memastikan equilibrium dunia “Arcaea”. **RAM** menjadi representasi dari “fragments” di dunia “Arcaea”, yang dimana dipantau **dalam persentase usage, dan juga penggunaan RAM sekarang.** 
 Lokasi shell script: ``./scripts/frag_monitor.sh``
-## Penyelesaian
+### Penyelesaian
 ```
 #!/bin/bash
 
@@ -222,7 +222,7 @@ AVAILABLE_MEM=$(free -m | awk 'NR==2 {print $7}')  # Memori yang tersedia dalam 
 
 echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRAG_COUNT} MB] -- Details [Total: ${TOTAL_MEM} MB, Available: ${AVAILABLE_MEM} MB]" >> "$LOG_FILE"
 ```
-## Penjelasan
+### Penjelasan
 1) ``FRAG_USAGE`` Menghitung persentase memori yang digunakan
    ```
    free -m | awk 'NR==2 {printf "%.2f", ($3/$2)*100}
@@ -253,14 +253,14 @@ echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRA
    ```
    - Mengambil jumlah memori yang tersedia dari ``free -m`` kolom ke-7.
    - Ex : **3700 MB**
-## G. On Fate's Approach
+### G. On Fate's Approach
 Pemantauan yang teratur dan terjadwal sangat penting untuk mendeteksi anomali. **Crontab manager (suatu menu)** memungkinkan "Player" untuk mengatur jadwal pemantauan sistem. 
 Hal yang harus ada di fungsionalitas menu: <br>
 **- Add/Remove CPU [Core] Usage** <br>
 **- Add/Remove RAM [Fragment] Usage**<br>
 **- View Active Jobs**<br>
 Lokasi shell script: ``./scripts/manager.sh``
-## Penyelesaian
+### Penyelesaian
 ```
 #!/bin/bash
 
@@ -312,7 +312,7 @@ while true; do
     echo ""
 done
 ```
-## Penjelasan
+### Penjelasan
 ``1)`` Menambahkan monitoring CPU ke ``crontab``, supaya script ``core_monitor.sh`` dijalankan setiap menit.
    ```
    (crontab -l; echo "* * * * * bash $(pwd)/scripts/core_monitor.sh >> $LOG_DIR/core.log") | crontab -
@@ -356,9 +356,9 @@ echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
 ```
 Akan muncul peringatan bahwa input tidak valid.
 
-## H. The Disfigured Flow of Time
+### H. The Disfigured Flow of Time
 Karena tentunya script yang dimasukkan ke crontab tidak mengeluarkan output di terminal, buatlah 2 log file, core.log dan fragment.log di folder ./log/, yang dimana masing-masing terhubung ke program usage monitoring untuk usage tersebut. 
-## Format log :
+### Format log :
 - CPU 
 ```
 [YYYY-MM-DD HH:MM:SS] - Core Usage [$CPU%] - Terminal Model [$CPU_Model]
@@ -367,8 +367,8 @@ Karena tentunya script yang dimasukkan ke crontab tidak mengeluarkan output di t
 ```
 [YYYY-MM-DD HH:MM:SS] - Fragment Usage [$RAM%] - Fragment Count [$RAM MB] - Details [Total: $TOTAL MB, Available: $AVAILABLE MB]
 ```
-## Penyelesaian
-## CPU
+### Penyelesaian
+### CPU
 Pada script ``core_monitor.sh``, baris :
 ```
 LOG_FILE="./logs/core.log"
@@ -380,7 +380,7 @@ Berfungsi untuk mencatat hasil monitoring CPU ke dalam file log.
 - Setiap baris log berisi timestamp, persentase penggunaan CPU, dan model CPU yang digunakan.
 - ``>>`` digunakan untuk menambahkan baris ke akhir file log tanpa menghapus isi sebelumnya.
 - ``2>/dev/null`` digunakan untuk membuang pesan error jika ada.
-## RAM
+### RAM
 Pada script ``frag_monitor.sh``, baris :
 ```
 LOG_FILE="./logs/fragment.log"
@@ -391,14 +391,14 @@ Berfungsi untuk mencatat hasil monitoring memori (RAM) ke dalam file log.
 - Output akan disimpan ke file ``fragment.log`` yang berada di direktori ``./logs/``.
 - Setiap baris log berisi waktu pencatatan, persentase penggunaan memori (``FRAG_USAGE``), ukuran fragmentasi (``FRAG_COUNT`` dalam MB), total memori yang tersedia (``TOTAL_MEM``), dan memori yang masih bisa dipakai (``AVAILABLE_MEM``).
 - ``>>`` digunakan untuk menambahkan baris log baru tanpa menghapus isi sebelumnya.
-## I. Irruption of New Color
+### I. Irruption of New Color
 Sistem harus memiliki antarmuka utama yang menggabungkan semua komponen. Ini akan menjadi titik masuk bagi "Player" untuk mengakses seluruh sistem. Buatlah shell script **terminal.sh**, yang berisi user flow berikut: <br> 
 - Register
 - Login
   - Crontab manager (add/rem core & fragment usage)
   - Exit
 - Exit
-## Penyelesaian
+### Penyelesaian
 ```
 #!/bin/bash
 
@@ -435,7 +435,7 @@ while true; do
     esac
 done
 ```
-## Penjelasan
+### Penjelasan
 ``case $main_choice in`` digunakan untuk menangkap input user dari variabel main_choice (hasil dari ``read -p "Pilih opsi: "``). Kemudian dijalankan sesuai pilihan: <br>
 ``1)`` Jika user memilih 1, maka script akan menjalankan ``register.sh``.<br>
 User akan diarahkan ke proses registrasi.<br>
@@ -450,25 +450,45 @@ Kembali ke Crontab Manager? (y/n):
 ```
 Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop. <br>
 ``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).<br>
-## Soal 3
-## Soal 4
-a.) Melihat summary dari data
 
+## Soal 3
+### Oleh: 
+
+## Soal 4
+### Oleh: Revalina Erica Permatasari
+<img width="578" alt="image" src="https://github.com/user-attachments/assets/f5159058-e5e0-4776-a9bc-31f996685a1e" />
+
+- ``$#`` adalah variabel khusus di Bash yang menyimpan jumlah argumen yang diberikan saat script dijalankan. Jika jumlah argumen kurang dari 2 ``(-lt 2)``, script akan menampilkan pesan error dan keluar (exit 1). Jadi dia memastikan user memberikan minimal 2 argumen: <file_name> (pokemon_usage.csv) dan <command> (seperti: -i, -h. dan lainnya).
+- ``$0`` adalah nama script yang sedang dijalankan, yaitu pokemon_analysis.sh
+- ``$1`` adalah nama file yang akan diproses, yaitu pokemon_usage.csv.
+- ``$2`` adalah perintah yang akan dieksekusi (misal: ``-i``, ``--filter``).
+- ``$3`` adalah opsi tambahan (misal: kolom untuk sorting atau nama Pokemon untuk searching).
+  
+### a.) Melihat summary dari data
 Fitur untuk menampilkan nama Pokemon dengan Usage% dan RawUsage paling tinggi.
 
 <img width="596" alt="image" src="https://github.com/user-attachments/assets/f91ed2b2-5d2d-43fb-b8c6-22afc71df006" />
+- ``tail -n +2 "$file"`` Menghapus baris pertama (header) dari file CSV.
+- ``sort -t, -k2 -nr``Mengurutkan data berdasarkan kolom ke-2 (Usage%) secara numerik (-n) dan terbalik (-r). Jadi dia akan menampilkan nilai tertinggi.
+- ``head -1`` Mengambil baris pertama setelah diurutkan (nilai tertinggi).
+- ``sort -t, -k3 -nr | head -1`` Sama halnya seperti sebelumnya, tetapi disini RawUsage ada di kolom 3
 
 Output
 
 <img width="494" alt="image" src="https://github.com/user-attachments/assets/10e1c80f-e23b-42ea-a294-2dfb389d73ce" />
 
-b.) Mengurutkan Pokemon berdasarkan data kolom
-
+#### b.) Mengurutkan Pokemon berdasarkan data kolom
 Sort dilakukan dengan urutan descending untuk semua angka selain nama, yang diurutkan secara alphabetical. Output harus sesuai dengan format csv yang diberikan.
 
 <img width="674" alt="image" src="https://github.com/user-attachments/assets/d08ae74c-a493-4574-a764-9f6cfb398af8" />
-
-Ouput
+- ``grep -q -w "$option"`` Memeriksa apakah kolom yang diminta ada di header. Dan tidak ada output (hanya status ``true``/``false``) karena fokusnya pada error handling
+- ``head -1 "$file"``Mengambil baris pertama (header) dari file untuk mendapatkan daftar nama kolom.
+- ``tr ',' '\n'`` Mengubah koma (,) menjadi baris baru (\n).
+- ``grep -n -w "$option"`` Mencari dan menampilkan nomor kolom berdasarkan nama kolom yang dipilih pengguna.
+- ``cut -d: f1`` Mengambil nomor kolom dari hasil pencarian untuk sorting.
+- ``head -1`` Jika ada lebih dari satu hasil (misalnya option muncul lebih dari sekali), kita hanya ambil yang pertama.
+  
+Salah satu contoh output sort
 
 
 
