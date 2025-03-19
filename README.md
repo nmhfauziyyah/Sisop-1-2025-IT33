@@ -94,8 +94,6 @@ echo "Masukkan password:"
 read -rs password
 echo
 
-password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
-
 grep -q ",$email,$password_hash" "$CSV_FILE" && { echo "✅ Login Berhasil!"; exit 0; }
 
 echo "❌ Invalid email or password!"
@@ -121,7 +119,31 @@ Dari kode tersebut terdapat 2 validasi, yaitu :
 2) Validasi password yang harus memiliki minimal 8 karakter
    ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
 Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
- 
+
+## C. Unceasing Spiri
+Karena diperlukan pengecekan keaslian “Player” yang aktif, maka diperlukan sistem untuk pencegahan duplikasi “Player”. **Jadikan sistem login/register tidak bisa memakai email yang sama (email = unique), tetapi tidak ada pengecekan tambahan untuk username.**
+## Penyelesaian
+Menambahkan command untuk check tidak boleh memiliki email yang sama pada ```register.sh```
+```
+grep -q ",$email," "$CSV_FILE" && { echo "❌ Email sudah terdaftar!"; exit 1; }
+```
+Menggunakan ```grep``` untuk mengambil data dari ```CSV_FILE```
+
+## D. The Eternal Realm of Light
+Password adalah kunci akses ke dunia Arcaea. Untuk menjaga keamanan "Player", password perlu disimpan dalam bentuk yang tidak mudah diakses. Gunakan algoritma hashing **sha256sum** yang memakai static salt (bebas).
+## Penyelesaian
+Menambahkan command untuk menyimpan password dalam bentuk yang tidak mudah diakses
+``register.sh``
+Ini langsung menyimpan ke ``CSV_FILE``
+```
+echo "$name,$email,$(echo -n "$password" | sha256sum | awk '{print $1}')" >> "$CSV_FILE"
+```
+``login.sh``
+Ini untuk check lagi apakah sudah menggunakan **hashing sha256sum** untuk kerahasiaan password
+```
+password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+```
+
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
