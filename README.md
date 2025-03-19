@@ -430,10 +430,10 @@ while true; do
 done
 ```
 ## Penjelasan
-``case $main_choice in`` digunakan untuk menangkap input user dari variabel main_choice (hasil dari ``read -p "Pilih opsi: "``). Kemudian dijalankan sesuai pilihan:
-``1)`` Jika user memilih 1, maka script akan menjalankan ``register.sh``.
-User akan diarahkan ke proses registrasi.
-``2)`` Jika user memilih 2, maka script akan menjalankan ``login.sh``.
+``case $main_choice in`` digunakan untuk menangkap input user dari variabel main_choice (hasil dari ``read -p "Pilih opsi: "``). Kemudian dijalankan sesuai pilihan: <br>
+``1)`` Jika user memilih 1, maka script akan menjalankan ``register.sh``.<br>
+User akan diarahkan ke proses registrasi.<br>
+``2)`` Jika user memilih 2, maka script akan menjalankan ``login.sh``.<br>
 - Setelah ``login.sh`` selesai dijalankan, akan dicek ``if [[ $? -eq 0 ]];
   then``
 - ``$? -eq 0`` artinya login berhasil (exit code 0).
@@ -443,7 +443,7 @@ User akan diarahkan ke proses registrasi.
 Kembali ke Crontab Manager? (y/n):
 ```
 Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop.
-``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).
+``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).<br>
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
