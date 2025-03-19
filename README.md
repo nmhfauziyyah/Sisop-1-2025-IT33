@@ -39,7 +39,11 @@ Output
 
 ![3  Hasil 4](https://github.com/user-attachments/assets/724b1f8f-cbcb-4b98-bd61-efb7b64d54d7)
 
-## Soal 2
+### Soal 2
+## Oleh : Ni'mah Fauziyyah A
+## Soal
+Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
+
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
