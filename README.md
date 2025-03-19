@@ -52,22 +52,59 @@ Output
 a.) Melihat summary dari data
 Untuk mengetahui Pokemon apa yang sedang membawa teror kepada lingkungan “Generation 9 OverUsed” anda berusaha untuk membuat sebuah fitur untuk menampilkan nama Pokemon dengan Usage% dan RawUsage paling tinggi.
 
+<img width="596" alt="image" src="https://github.com/user-attachments/assets/f91ed2b2-5d2d-43fb-b8c6-22afc71df006" />
+
+Output
+
+<img width="494" alt="image" src="https://github.com/user-attachments/assets/10e1c80f-e23b-42ea-a294-2dfb389d73ce" />
+
 b.) Mengurutkan Pokemon berdasarkan data kolom
 Sort dilakukan dengan urutan descending untuk semua angka selain nama, yang diurutkan secara alphabetical. Output harus sesuai dengan format csv yang diberikan.
+
+<img width="674" alt="image" src="https://github.com/user-attachments/assets/d08ae74c-a493-4574-a764-9f6cfb398af8" />
+
+Ouput
+
+
 
 c.) Mencari nama Pokemon tertentu
 Membuat fitur search berdasarkan nama Pokemon. Pastikan agar search yang dimasukkan tidak memunculkan hasil yang tidak diinginkan (seperti memunculkan semua Grass type ketika mengetik search “Grass”), dan output harus sesuai dengan format csv yang diberikan dengan sort Usage%.
 
+<img width="626" alt="image" src="https://github.com/user-attachments/assets/6437f24c-1c7d-4f62-8a9e-19792d7f1ef7" />
+
+Output
+
+
+
 d.) Mencari Pokemon berdasarkan filter nama type
 Membuat fitur filter berdasarkan Type sebuah Pokemon. Output harus sesuai dengan format csv yang diberikan dengan sort Usage%
 
+<img width="657" alt="image" src="https://github.com/user-attachments/assets/92f5f934-14cb-494b-b031-18a16c8273c4" />
+
+Outputnya yaitu
+
+<img width="580" alt="image" src="https://github.com/user-attachments/assets/ad5ad469-2808-4dbf-b30b-6f99b15eefc3" />
+
 e.) Error handling
 Pastikan program yang anda buat mengecek semua kesalahan pengguna agar dapat memberikan kejelasan kepada pengguna pada setiap kasus.
+
+Error Handling saat user belum mengisi option atau menulis option yang tidak ada
+<img width="611" alt="image" src="https://github.com/user-attachments/assets/0ae683fa-b9ef-4ccd-88b7-ff551cbc8954" />
+
+Salah satu contoh output
+
+<img width="557" alt="image" src="https://github.com/user-attachments/assets/b5323eba-9d8b-4d0d-a48d-f351b74c7cc7" />
 
 f.) Help screen yang menarik
 Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk membuat sebuah help screen yang muncul ketika mengetik -h atau --help sebagai command yang dijalankan. Kriteria yang harus ada dalam help screen pada program ini adalah:
 - ASCII Art yang menarik! Gunakan kreativitas anda untuk mencari/membuat art yang cocok untuk program yang sudah anda buat!
 - Penjelasan setiap command dan sub-command
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/e3535b48-e8d5-49a2-857d-6883f4addb54" />
+
+Output
+
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/a99e54fd-16c3-4260-9184-fea093f46382" />
 
 ## Kendala
 ### Soal 1
