@@ -5,8 +5,8 @@
 2. Revalina Erica Permatasari (5027241007)
 3. Kaisar Hanif Pratama (5027241029)
 
-## Soal 1 
-### Oleh : Kaisar Hanif Pratama
+### Soal 1 
+## Oleh : Kaisar Hanif Pratama
 a.) Pada soal 1 bagian a ini, Poppo ingin mencari tahu jumlah buku yang dibaca oleh Chris Hemsworth.
 
 ![1a](https://github.com/user-attachments/assets/7a5d085b-d521-4b44-a48a-0d88a4a5f4a2)
@@ -42,7 +42,11 @@ Output
 ### Soal 2
 ## Oleh : Ni'mah Fauziyyah A
 ## Soal
+``
 Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
+``
+## Jawaban
+
 
 ## Soal 3
 ## Soal 4
