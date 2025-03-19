@@ -160,6 +160,7 @@ CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*
 
 echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
 ```
+## Penjelasan
 1) Membuat folder logs jika belum ada, untuk menyimpan file log.
 ```
 mkdir -p ./logs
@@ -190,6 +191,57 @@ TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 - Menuliskan log ke file ``core.log`` dengan format:
 ```[2025-03-20 17:40:52] - Core Usage [15.0%] - Terminal Model [Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz]```
 - ``2>/dev/null`` membuang error output jika ada.
+## F. In Grief and Great Delight
+Selain CPU, “fragments” juga perlu dipantau untuk memastikan equilibrium dunia “Arcaea”. **RAM** menjadi representasi dari “fragments” di dunia “Arcaea”, yang dimana dipantau **dalam persentase usage, dan juga penggunaan RAM sekarang.** 
+Lokasi shell script: ``./scripts/frag_monitor.sh``
+## Penyelesaian
+```
+#!/bin/bash
+
+mkdir -p ./logs
+
+LOG_FILE="./logs/fragment.log"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+
+FRAG_USAGE=$(free -m | awk 'NR==2 {printf "%.2f", ($3/$2)*100}')  # Persentase penggunaan memori
+FRAG_COUNT=$(df / | awk 'NR==2 {printf "%.2f", $3/1024}')  # Ukuran fragmentasi dalam MB
+TOTAL_MEM=$(free -m | awk 'NR==2 {print $2}')  # Total memori dalam MB
+AVAILABLE_MEM=$(free -m | awk 'NR==2 {print $7}')  # Memori yang tersedia dalam MB
+
+echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRAG_COUNT} MB] -- Details [Total: ${TOTAL_MEM} MB, Available: ${AVAILABLE_MEM} MB]" >> "$LOG_FILE"
+```
+## Penjelasan
+1) ``FRAG_USAGE`` Menghitung persentase memori yang digunakan
+   ```
+   free -m | awk 'NR==2 {printf "%.2f", ($3/$2)*100}
+   ```
+   - ``free -m`` Menampilkan penggunaan memori dalam MB
+   - ``awk 'NR==2 {printf "%.2f", ($3/$2)*100}'``
+     - ``NR==2`` Mengambil baris ke-2 (Karena berisikan data memori)
+     - ``($3/$2)*100`` Menghitung persentase used/total
+     - Ex : **50.63%**
+2) ``FRAG_COUNT`` Menghitung ukuran fragmentasi
+   ```
+   df / | awk 'NR==2 {printf "%.2f", $3/1024}'
+   ```
+   - ``df /`` → Menampilkan disk usage untuk root (/).
+   - ``awk 'NR==2 {printf "%.2f", $3/1024}'``
+     - ``$3`` adalah kolom "Used" dalam satuan KB.
+     - Dibagi ``1024`` untuk konversi ke MB.
+     - Ex: **19531.25 MB**
+3) ``TOTAL_MEM`` Total Memori
+   ```
+   free -m | awk 'NR==2 {print $2}'
+   ```
+   - Mengambil total memori dari ``free -m`` kolom ke-2.
+   - Ex: **7900 MB**
+4) ``AVAILABLE_MEM`` Memori Tersedia
+   ```
+   free -m | awk 'NR==2 {print $7}'
+   ```
+   - Mengambil jumlah memori yang tersedia dari ``free -m`` kolom ke-7.
+   - Ex : **3700 MB**
+   
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
