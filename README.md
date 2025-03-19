@@ -54,8 +54,8 @@ Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingata
 ## Jawaban
 ## A. First Step in a New World
 Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua **shell script**, **login.sh dan register.sh**, yang dimana database **“Player” disimpan di /data/player.csv**. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu **email dan password.**
-# Penyelesaian
-# Membuat shell script ``register.sh``
+## Penyelesaian
+## Membuat shell script ``register.sh``
 ```
 #!/bin/bash
 
