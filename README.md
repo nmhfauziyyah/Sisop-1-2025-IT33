@@ -385,6 +385,65 @@ Berfungsi untuk mencatat hasil monitoring memori (RAM) ke dalam file log.
 - Output akan disimpan ke file ``fragment.log`` yang berada di direktori ``./logs/``.
 - Setiap baris log berisi waktu pencatatan, persentase penggunaan memori (``FRAG_USAGE``), ukuran fragmentasi (``FRAG_COUNT`` dalam MB), total memori yang tersedia (``TOTAL_MEM``), dan memori yang masih bisa dipakai (``AVAILABLE_MEM``).
 - ``>>`` digunakan untuk menambahkan baris log baru tanpa menghapus isi sebelumnya.
+## I. Irruption of New Color
+Sistem harus memiliki antarmuka utama yang menggabungkan semua komponen. Ini akan menjadi titik masuk bagi "Player" untuk mengakses seluruh sistem. Buatlah shell script **terminal.sh**, yang berisi user flow berikut: <br> 
+- Register
+- Login
+  - Crontab manager (add/rem core & fragment usage)
+  - Exit
+- Exit
+## Penyelesaian
+```
+#!/bin/bash
+
+while true; do
+    echo "============================"
+    echo " SELAMAT DATANG DI TERMINAL "
+    echo "============================"
+    echo ""
+    echo "1) Register"
+    echo "2) Login"
+    echo "3) Exit"
+    read -p "Pilih opsi: " main_choice
+    echo ""
+
+    clear
+
+    case $main_choice in
+        1) bash register.sh ;;
+        2) 
+            bash login.sh 
+            if [[ $? -eq 0 ]]; then
+                while true; do
+                    bash scripts/manager.sh
+                    read -p "Kembali ke Crontab Manager? (y/n): " choice
+                    if [[ "$choice" != "y" ]]; then
+                        break
+                    fi
+                done
+            fi
+        ;;
+        3) exit
+        sleep 1
+        ;;
+    esac
+done
+```
+## Penjelasan
+``case $main_choice in`` digunakan untuk menangkap input user dari variabel main_choice (hasil dari ``read -p "Pilih opsi: "``). Kemudian dijalankan sesuai pilihan:
+``1)`` Jika user memilih 1, maka script akan menjalankan ``register.sh``.
+User akan diarahkan ke proses registrasi.
+``2)`` Jika user memilih 2, maka script akan menjalankan ``login.sh``.
+- Setelah ``login.sh`` selesai dijalankan, akan dicek ``if [[ $? -eq 0 ]];
+  then``
+- ``$? -eq 0`` artinya login berhasil (exit code 0).
+- Jika login berhasil, maka akan masuk ke ``manager.sh`` secara berulang.
+- Setelah keluar dari ``manager.sh``, akan muncul pertanyaan:
+```
+Kembali ke Crontab Manager? (y/n):
+```
+Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop.
+``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
