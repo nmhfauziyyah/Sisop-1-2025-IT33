@@ -173,13 +173,17 @@ LOG_FILE="./logs/core.log"
 ```
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 ```
-4) ```CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')```
+4) ```
+   CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+   ```
 - Command ``top -bn1`` menampilkan snapshot sekali (non-interaktif) tentang penggunaan sumber daya.
 - Lalu ``grep "Cpu(s)"`` akan mencari baris yang mengandung informasi CPU.
 - Kolom ke-8 (idle / ``id``) menunjukkan CPU yang tidak dipakai.
 - ``awk '{print 100 - $8}'`` akan menghitung CPU usage dengan mengurangkan 100 - idle.
 - Misal : idle 85.0, berarti CPU usage: 100 - 85.0 = 15%.
-5) ```CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')```
+5) ```
+  CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')
+  ```
 - Perintah ``lscpu`` menampilkan informasi tentang CPU.
 - ``grep "Model name"`` mengambil baris yang berisi model CPU.
 - ``awk -F ':' '{print $2}'`` memisahkan teks dengan tanda ``:`` dan mengambil bagian kedua (isi modelnya).
@@ -187,7 +191,9 @@ TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 - ``tr -s ' '`` merapikan spasi agar tidak berlebihan.
 - Hasil Akhir akan menampilkan hanya nama prosesor :
   ```Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz```
-6) ```echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null```
+6) ```
+  echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
+  ```
 - Menuliskan log ke file ``core.log`` dengan format:
 ```[2025-03-20 17:40:52] - Core Usage [15.0%] - Terminal Model [Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz]```
 - ``2>/dev/null`` membuang error output jika ada.
@@ -342,7 +348,43 @@ Menghentikan script
 ```
 echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
 ```
-Akan muncul peringatan bahwa input tidak valid
+Akan muncul peringatan bahwa input tidak valid.
+
+## H. The Disfigured Flow of Time
+Karena tentunya script yang dimasukkan ke crontab tidak mengeluarkan output di terminal, buatlah 2 log file, core.log dan fragment.log di folder ./log/, yang dimana masing-masing terhubung ke program usage monitoring untuk usage tersebut. 
+## Format log :
+- CPU 
+```
+[YYYY-MM-DD HH:MM:SS] - Core Usage [$CPU%] - Terminal Model [$CPU_Model]
+```
+- RAM
+```
+[YYYY-MM-DD HH:MM:SS] - Fragment Usage [$RAM%] - Fragment Count [$RAM MB] - Details [Total: $TOTAL MB, Available: $AVAILABLE MB]
+```
+## Penyelesaian
+## CPU
+Pada script ``core_monitor.sh``, baris :
+```
+LOG_FILE="./logs/core.log"
+
+echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
+```
+Berfungsi untuk mencatat hasil monitoring CPU ke dalam file log.
+- Output akan disimpan ke file ``core.log`` yang berada di direktori ``./logs/``.
+- Setiap baris log berisi timestamp, persentase penggunaan CPU, dan model CPU yang digunakan.
+- ``>>`` digunakan untuk menambahkan baris ke akhir file log tanpa menghapus isi sebelumnya.
+- ``2>/dev/null`` digunakan untuk membuang pesan error jika ada.
+## RAM
+Pada script ``frag_monitor.sh``, baris :
+```
+LOG_FILE="./logs/fragment.log"
+
+echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRAG_COUNT} MB] -- Details [Total: ${TOTAL_MEM} MB, Available: ${AVAILABLE_MEM} MB]" >> "$LOG_FILE"
+```
+Berfungsi untuk mencatat hasil monitoring memori (RAM) ke dalam file log.
+- Output akan disimpan ke file ``fragment.log`` yang berada di direktori ``./logs/``.
+- Setiap baris log berisi waktu pencatatan, persentase penggunaan memori (``FRAG_USAGE``), ukuran fragmentasi (``FRAG_COUNT`` dalam MB), total memori yang tersedia (``TOTAL_MEM``), dan memori yang masih bisa dipakai (``AVAILABLE_MEM``).
+- ``>>`` digunakan untuk menambahkan baris log baru tanpa menghapus isi sebelumnya.
 ## Soal 3
 ## Soal 4
 a.) Melihat summary dari data
