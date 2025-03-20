@@ -610,6 +610,39 @@ elif [[ "$TRACK" == "Brain Damage" ]]; then
 - ``ps -eo ... --sort=-%mem | head -n 6``: Menampilkan 5 proses dengan konsumsi memori tertinggi.
 - ``clear``: Membersihkan layar sebelum refresh.
 - ``sleep 1``: Update setiap detik.
+### Kendala
+#### [1] Memanggil argumen dengan format ``--play="<track>"
+Masih bingung cara validasi input dan menangkap argumen agar bisa dijalankan, tapi akhirnya sudah bisa dengan menggunakan ``if`` dan ``fi`` yang didalamnya terdapat kondisi ``[[ "$1" != --play=* ]]`` dan menangkap argumennya dengan ``TRACK="${1#--play=}"``
+#### [2] Menampilkan loading bar di On the Run
+Loading tidak berjalan dengan smooth atau tampilan angkanya tidak rapi, akhirnya saya menggunakan kombinasi <br>
+```
+progress=$((progress + RANDOM % 10))
+echo -ne "\r[...]"
+```
+Lalu mengatur ``sleep`` dan ``awk`` random sehingga hasilnya smooth dan natural
+#### [3] Money - karakter uang tidak menampilkan random tapi berupa baris
+Munculnya itu seperti banyak baris dan posisi uang tidak acak, akhirnya saya menggunakan kombinasi random posisi ``x`` dan ``y`` dengan :
+```
+x=$(( RANDOM % $(tput cols) + 1 ))
+y=$(( RANDOM % $(tput lines) + 1 ))
+```
+Lalu menampilkan karakter di posisi acak dengan :
+```
+echo -e "\033[${y};${x}H${GREEN}${char}${RESET}"
+```
+#### [4] Brain Damage - Hasil output ``ps`` terlalu banyak, tidak konsinten
+``ps`` menampilkan terlalu banyak baris dan memenuhi layar, akhirnya saya menggunakan :
+```
+ps -eo pid,user,%cpu,%mem,vsz,comm --sort=-%mem | head -n 6
+```
+Sehingga hanya menampilkan 5 proses teratas (ditambah header), membuat tampilannya rapi dan tidak penuh
+#### [5] Menampilkan waktu secara live (Time)
+Waktu tidak update di tempat yang sama, malah print di baris baru terus seperti lirik, lalu saya mencoba menggunakan :
+```
+echo -ne "\r$(date '+%Y-%m-%d %H:%M:%S')"
+```
+dengan karakter return atau ``\r`` agar waktu update di satu baris tanpa bergeser
+### Dokumentasi
 ## Soal 4
 ### Oleh: Revalina Erica Permatasari
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/f5159058-e5e0-4776-a9bc-31f996685a1e" />
