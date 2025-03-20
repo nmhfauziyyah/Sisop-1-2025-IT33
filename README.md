@@ -513,8 +513,103 @@ Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 ![6  frag log](https://github.com/user-attachments/assets/3792ceb3-8dcf-4b07-bb55-3bb337e00782)
 
 ## Soal 3
-### Oleh: 
+### Oleh: Ni'mah Fauziyyah A
+### Soal
+``Untuk merayakan ulang tahun ke 52 album The Dark Side of the Moon, tim PR Pink Floyd mengadakan sebuah lomba dimana peserta diminta untuk membuat sebuah script bertemakan setidaknya 5 dari 10 lagu dalam album tersebut. Sebagai salah satu peserta, kamu memutuskan untuk memilih Speak to Me, On the Run, Time, Money, dan Brain Damage. Saat program ini dijalankan, terminal harus dibersihkan terlebih dahulu agar tidak mengganggu tampilan dari fungsi fungsi yang kamu buat. Program ini dijalankan dengan cara ./dsotm.sh --play=”<Track>” dengan Track sebagai nama nama lagu yang kamu pilih``
+### Jawaban
+#### A. Speak to Me
+Untuk lagu ini, kamu memutuskan untuk membuat sebuah fitur yang memanggil API yang baru saja kamu temukan kemarin, ``https://github.com/annthurium/affirmations`` untuk menampilkan word of affirmation setiap detik.
+#### Penyelesaian
+Lagu ini akan menampilkan kalimat afirmasi secara terus-menerus setiap detik dengan mengambil data dari API ``https://www.affirmations.dev.``
+```
+if [[ "$TRACK" == "Speak to Me" ]]; then
+    while true; do
+        curl -s https://www.affirmations.dev | jq -r '.affirmation'
+        sleep 1
+    done
+```
+#### Penjelasan
+- ``curl -s https://www.affirmations.dev``: Mengambil data afirmasi secara diam-diam (tidak menampilkan proses).
+- ``jq -r '.affirmation'``: Mengambil hanya teks afirmasi dari hasil JSON.
+- ``sleep 1``: Menunggu 1 detik sebelum menampilkan afirmasi berikutnya.
+#### B. On the Run
+Selanjutnya, kamu memutuskan untuk membuat sebuah progress bar yang berjalan dengan interval random (setiap progress bertambah dalam interval waktu yang random dengan range 0.1 detik sampai 1 detik).
+#### Penyelesaian
+Lagu ini akan menampilkan progres loading dari 0% sampai 100%, dengan baris bergerak yang diisi simbol #.
+```
+elif [[ "$TRACK" == "On the Run" ]]; then
+    progress=0
+    while [ $progress -lt 100 ]; do
+        progress=$((progress + RANDOM % 10))
+        [ $progress -gt 100 ] && progress=100
+        echo -ne "\r[$(printf '#%.0s' $(seq 1 $((progress / 2))))$(printf ' %.0s' $(seq 1 $((50 - progress / 2))))] $progress%"
+        sleep $(awk -v min=0.1 -v max=1 'BEGIN{srand(); print min+rand()*(max-min)}')
+    done
+    echo ""
+```
+#### Penjelasan
+- ``progress=$((progress + RANDOM % 10))``: Menambah progres secara acak 0-9%.
+- ``echo -ne "\r[...] $progress%"``: Menampilkan loading bar di baris yang sama.
+- ``sleep $(awk...)``: Memberi delay dengan waktu acak.
+#### C. Time
+Singkat saja, untuk time, kamu memutuskan untuk membuat live clock yang menunjukkan tanggal, jam, menit dan detik.
+#### Penyelesaian
+Lagu ini akan menampilkan waktu secara real-time, berubah setiap detik.
+```
+elif [[ "$TRACK" == "Time" ]]; then
+    while true; do
+        echo -ne "\r$(date '+%Y-%m-%d %H:%M:%S')"
+        sleep 1
+    done
+```
+#### Penjelasan
+- ``date '+%Y-%m-%d %H:%M:%S'``: Menampilkan waktu dengan format lengkap.
+- ``echo -ne "\r..."``: Memperbarui baris yang sama terus-menerus.
+- ``sleep 1``: Update tiap detik.
+#### D. Money
+Kamu teringat dengan program yang sangat disukai oleh teman mu yang bernama cmatrix. Kamu pun memutuskan untuk membuat program yang mirip, tetapi mengganti isinya dengan simbol mata uang seperti $ € £ ¥ ¢ ₹ ₩ ₿ ₣ dan lain lainnya.
+#### Penyelesaian
+Lagu ini akan menampilkan simbol-simbol uang secara acak di layar, seolah-olah seperti hujan uang.
+```
+elif [[ "$TRACK" == "Money" ]]; then
+    clear
+    symbols=("$" "€" "£" "¥" "¢" "₹" "₩" "฿" "₣")
+    GREEN="\e[32m"
+    RESET="\e[0m"
 
+    while true; do
+        for ((i = 0; i < $(tput cols) / 2; i++)); do
+            x=$(( RANDOM % $(tput cols) + 1 ))
+            y=$(( RANDOM % $(tput lines) + 1 ))
+            char="${symbols[RANDOM % ${#symbols[@]}]}"
+            echo -e "\033[${y};${x}H${GREEN}${char}${RESET}"
+        done
+        sleep 0.1
+        clear
+    done
+```
+#### Penjelasan
+- ``symbols=(...)``: Array berisi simbol uang dari berbagai mata uang.
+- ``tput cols dan tput lines``: Mengambil lebar dan tinggi terminal.
+- ``echo -e "\033[${y};${x}H..."``: Menempatkan simbol pada posisi acak di terminal.
+#### E. Brain Damage
+Untuk lagu Brain Damage, kamu mendapatkan ide untuk menampilkan proses yang sedang berjalan, seperti task manager tetapi menampilkannya di dalam terminal dan membuat agar task manager tersebut menampilkan data baru setiap detiknya.
+#### Penyelesaian
+Lagu ini akan menampilkan task manager mini yang menunjukkan 5 proses dengan penggunaan memori tertinggi.
+```
+elif [[ "$TRACK" == "Brain Damage" ]]; then
+	while true; do
+		clear
+		echo "PID	USER	%CPU	%MEM	VSZ	COMMAND"
+		echo "-----------------------------------------------------"
+		ps -eo pid,user,%cpu,%mem,vsz,comm --sort=-%mem | head -n 6
+		sleep 1
+	done
+```
+#### Penjelasan
+- ``ps -eo ... --sort=-%mem | head -n 6``: Menampilkan 5 proses dengan konsumsi memori tertinggi.
+- ``clear``: Membersihkan layar sebelum refresh.
+- ``sleep 1``: Update setiap detik.
 ## Soal 4
 ### Oleh: Revalina Erica Permatasari
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/f5159058-e5e0-4776-a9bc-31f996685a1e" />
