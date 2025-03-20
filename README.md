@@ -353,12 +353,12 @@ Menghapus baris cron yang memanggil ``frag_monitor.sh``
 ```
 crontab -l
 ```
-Menampilkan semua jadwal cron yang aktif.
+Menampilkan semua jadwal cron yang aktif. <br>
 ``6)`` Keluar dari Program
 ```
 exit
 ```
-Menghentikan script
+Menghentikan script<br>
 ``*)`` Jika input tidak sesuai 1–6, maka:
 ```
 echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
