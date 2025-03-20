@@ -47,10 +47,13 @@ elif [[ "$TRACK" == "Money" ]]; then
         clear
     done
 elif [[ "$TRACK" == "Brain Damage" ]]; then
-    while true; do
-        ps aux --sort=-%mem | head -5
-        sleep 1
-    done
+	while true; do
+		clear
+		echo "PID	USER	%CPU	%MEM	VSZ	COMMAND"
+		echo "-----------------------------------------------------"
+		ps -eo pid,user,%cpu,%mem,vsz,comm --sort=-%mem | head -n 6
+		sleep 1
+	done
 else
     echo "Track tidak dikenali. Pilih: Speak to Me, On the Run, Time, Money, Brain Damage."
     exit 1
