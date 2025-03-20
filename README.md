@@ -593,12 +593,11 @@ Output
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/a99e54fd-16c3-4260-9184-fea093f46382" />
 
 #### Kendala
-Kendala saat searching nama Pokemon, yaitu nama filter sempat muncul
+Kendala saat searching nama Pokemon, yaitu nama type pokemon sempat muncul
 
 <img width="638" alt="image" src="https://github.com/user-attachments/assets/cbb9c6f7-afd8-4463-ab21-ad53f0076c84" />
 
 Tetapi sudah kami temukan solusinya yaitu pada bagian ``grep -i "$option"``, jika seperti ini maka objek dari semua kolom dapat ditampilkan.
-Maka ``grep -i "$^option"`` adalah solusinya agar sistem hanya fokus pada kolom pertama saja, yaitu kolom untuk nama-nama Pokemon.
+Maka ``grep -i "$^option"`` adalah solusinya agar program hanya fokus pada kolom pertama saja, yaitu kolom untuk nama-nama Pokemon.
 
 <img width="502" alt="image" src="https://github.com/user-attachments/assets/d9bc0018-3441-4391-98c6-45027f8a9f90" />
-
