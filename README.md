@@ -487,28 +487,32 @@ Sort dilakukan dengan urutan descending untuk semua angka selain nama, yang diur
 - ``grep -n -w "$option"`` Mencari dan menampilkan nomor kolom berdasarkan nama kolom yang dipilih pengguna.
 - ``cut -d: f1`` Mengambil nomor kolom dari hasil pencarian untuk sorting.
 - ``head -1`` Jika ada lebih dari satu hasil (misalnya option muncul lebih dari sekali), kita hanya ambil yang pertama.
+- ``sort -t, -k"$COLUMN" -nr`` Mengurutkan data berdasarkan kolom yang dipilih.
+- ``sort -t, -k1,1`` Untuk kolom Pokemon yang disorting secara alphabetical (A-Z)
   
-Salah satu contoh output sort
+Salah satu contoh output sort (Usage%)
+<img width="552" alt="image" src="https://github.com/user-attachments/assets/41d10cb1-5ae5-40cd-a8bb-cc1975eff7b2" />
 
-
-
-c.) Mencari nama Pokemon tertentu
+#### c.) Mencari nama Pokemon tertentu
 
 Membuat fitur search berdasarkan nama Pokemon. Pastikan agar search yang dimasukkan tidak memunculkan hasil yang tidak diinginkan (seperti memunculkan semua Grass type ketika mengetik search “Grass”), dan output harus sesuai dengan format csv yang diberikan dengan sort Usage%.
 
 <img width="626" alt="image" src="https://github.com/user-attachments/assets/6437f24c-1c7d-4f62-8a9e-19792d7f1ef7" />
+- ``grep -i "^$option"`` Mencari Pokémon yang namanya diawali dengan $option (case-insensitive) di kolom pertama saja (kolom nama-nama Pokemon).
+- ``z "$search"`` Memeriksa apakah hasil pencarian kosong, jika kosong akan menampilkan error handling.
 
 Output
-
-
+<img width="512" alt="image" src="https://github.com/user-attachments/assets/e23e91e4-aab5-4a2a-bb12-a126769e3e06" />
 
 d.) Mencari Pokemon berdasarkan filter nama type
 
 Membuat fitur filter berdasarkan Type sebuah Pokemon. Output harus sesuai dengan format csv yang diberikan dengan sort Usage%
 
 <img width="657" alt="image" src="https://github.com/user-attachments/assets/92f5f934-14cb-494b-b031-18a16c8273c4" />
+- ``awk -F, -v type="$option" '$4 == type || $5 == type'`` Memfilter data berdasarkan tipe Pokemon (kolom ke-4 atau ke-5).
+- ``sort -t, -k2 -nr`` Mengurutkan hasil filter berdasarkan kolom Usage%.
 
-Outputnya yaitu
+Output
 
 <img width="580" alt="image" src="https://github.com/user-attachments/assets/ad5ad469-2808-4dbf-b30b-6f99b15eefc3" />
 
@@ -516,8 +520,17 @@ e.) Error handling
 
 Pastikan program yang anda buat mengecek semua kesalahan pengguna agar dapat memberikan kejelasan kepada pengguna pada setiap kasus.
 
-Error Handling saat user belum mengisi option atau menulis option yang tidak ada
+- Error Handling saat user belum mengisi option atau menulis option yang tidak ada
 <img width="611" alt="image" src="https://github.com/user-attachments/assets/0ae683fa-b9ef-4ccd-88b7-ff551cbc8954" />
+
+- Error Handling untuk Sorting berdasarkan Kolom
+![Screenshot 2025-03-19 153448](https://github.com/user-attachments/assets/978394b3-f696-4ceb-a627-4d866e6fea81)
+
+- Error Handling untuk Searching Pokemon
+![Screenshot 2025-03-19 154027](https://github.com/user-attachments/assets/8141f861-1072-44c3-bc1f-3a7a210da8ad)
+
+- Error Handling untuk Filter type Pokemon dan disorting bedasarkan Usage%
+<img width="682" alt="image" src="https://github.com/user-attachments/assets/7447e81c-bc01-493f-9438-18becade28ac" />
 
 Salah satu contoh output
 
@@ -541,3 +554,10 @@ Kendala saat menginstall file CSV
 ![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
 
 ## Soal 4
+Kendala saat searching nama Pokemon, yaitu nama filter sempat muncul
+
+<img width="638" alt="image" src="https://github.com/user-attachments/assets/cbb9c6f7-afd8-4463-ab21-ad53f0076c84" />
+
+Tetapi sudah kami temukan solusinya yaitu pada bagian ``grep -i "$option"``, jika seperti ini maka objek dari semua kolom dapat ditampilkan.
+Maka ``grep -i "$^option"`` adalah solusinya, agar yang program hanya fokus pada kolom pertama saja, yaitu kolom untuk nama-nama Pokemon.
+
