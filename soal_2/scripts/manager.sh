@@ -18,7 +18,7 @@ while true; do
     
     case $choice in
         1) 
-            (crontab -l; echo "* * * * * bash $(pwd)/scripts/core_monitor.sh >> $LOG_DIR/core.log") | crontab - 
+            (crontab -l; echo "* * * * * cd $(pwd) && bash ./scripts/core_monitor.sh") | crontab - 
             echo "✅ CPU Monitoring telah ditambahkan ke crontab."
             ;;
         2) 
@@ -26,7 +26,7 @@ while true; do
             echo "❌ CPU Monitoring telah dihapus dari crontab."
             ;;
         3) 
-            (crontab -l; echo "* * * * * bash $(pwd)/scripts/frag_monitor.sh >> $LOG_DIR/fragment.log") | crontab - 
+            (crontab -l; echo "* * * * * cd $(pwd) && bash ./scripts/frag_monitor.sh") | crontab - 
             echo "✅ RAM Monitoring telah ditambahkan ke crontab."
             ;;
         4) 
