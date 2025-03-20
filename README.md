@@ -185,7 +185,7 @@ LOG_FILE="./logs/core.log"
 ```
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 ```
-4)
+4) Monitoring Penggunaan CPU
 ```
 CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
 ```
@@ -194,7 +194,7 @@ CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
 - Kolom ke-8 (idle / ``id``) menunjukkan CPU yang tidak dipakai.
 - ``awk '{print 100 - $8}'`` akan menghitung CPU usage dengan mengurangkan 100 - idle.
 - Misal : idle 85.0, berarti CPU usage: 100 - 85.0 = 15%.
-5)
+5) Menampilkan Informasi Model Processor
 ```
 CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')
 ```
@@ -205,7 +205,7 @@ CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*
 - ``tr -s ' '`` merapikan spasi agar tidak berlebihan.
 - Hasil Akhir akan menampilkan hanya nama prosesor :
   ```Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz```
-6)
+6) Menampilkan Output dari core_monitor.sh
 ```
 echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
 ```
