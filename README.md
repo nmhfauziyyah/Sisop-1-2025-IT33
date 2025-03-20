@@ -123,7 +123,7 @@ Validasi email dan password sudah berada di ``register.sh`` :
 [[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]] || { echo "❌ Email salah, Coba lagi!"; exit 1; }
 
 # Validasi password (minimal 8 karakter)
-[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }
+[[ ${#password} -ge 8 && "$password" == *[[:lower:]]* && "$password" == *[[:upper:]]* && "$password" == *[0-9]* ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }
 ```
 Dari kode tersebut terdapat 2 validasi, yaitu :
 1) Validasi Email yang harus menggunakan format tanda @ dan titik dengan command :
