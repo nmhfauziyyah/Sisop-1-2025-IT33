@@ -481,8 +481,8 @@ Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 Cron tidak menampilkan error apa pun, dan log tidak bertambah.<br>
 ## Solusi:
 - Mengecek log cron dengan ``grep CRON /var/log/syslog`` untuk melihat
-  error. <br>
-- Memastikan script sudah ``chmod +x``. <br>
+  error. [Solve] <br>
+- Memastikan script sudah ``chmod +x``. [Solve] <br>
 ## Soal 3
 ### Oleh: 
 
