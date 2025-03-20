@@ -128,9 +128,8 @@ Validasi email dan password sudah berada di ``register.sh`` :
 Dari kode tersebut terdapat 2 validasi, yaitu :
 1) Validasi Email yang harus menggunakan format tanda @ dan titik dengan command :
    ```[[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]] || { echo "❌ Email salah, Coba lagi!"; exit 1; }```
-2) Validasi password yang harus memiliki minimal 8 karakter
-   ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
-Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
+2) Validasi password yang harus memiliki minimal 8 karakter dan mengandung huruf besar, keci, dan angka.
+   ```[[ ${#password} -ge 8 && "$password" == *[[:lower:]]* && "$password" == *[[:upper:]]* && "$password" == *[0-9]* ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
 
 #### C. Unceasing Spirit
 Karena diperlukan pengecekan keaslian “Player” yang aktif, maka diperlukan sistem untuk pencegahan duplikasi “Player”. **Jadikan sistem login/register tidak bisa memakai email yang sama (email = unique), tetapi tidak ada pengecekan tambahan untuk username.**
@@ -493,23 +492,23 @@ Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 ```
 - Lalu saya lanjut restart cron dengan ``sudo service cron restart`` [Solve] <br>
 ### Dokumentasi
-### 1. Tampilan `terminal.sh`
+#### 1. Tampilan `terminal.sh`
 ![1  terminal](https://github.com/user-attachments/assets/554880f2-2fcb-4b25-b4a8-40deebf61553)
-### 2) Tampilan jika memilih opsi 1 (register)
+#### 2) Tampilan jika memilih opsi 1 (register)
 ![2  register](https://github.com/user-attachments/assets/63dc9d02-bd12-4430-a294-55f22dcafbbd)
-### 3) Data dari register akan tersimpan di data/player.csv
+#### 3) Data dari register akan tersimpan di data/player.csv
 ![2  data](https://github.com/user-attachments/assets/7a1e415e-2969-4fb5-bfc3-52b26b08c4e5)
-### 4) Tampilan login
+#### 4) Tampilan login
 ![3  login](https://github.com/user-attachments/assets/d17688e0-097f-4047-b55e-c55b2d1d386a)
-### 5) Tampilan berhasil login lalu masuk ke crontab menu
-![3  login berhasil crontab menu](https://github.com/user-attachments/assets/7176b9db-bcd7-40ee-b4d4-041849e41fd3)
-### 6) Menambahkan CPU dan RAM
+#### 5) Tampilan berhasil login lalu masuk ke crontab menu
+![0  rev pw](https://github.com/user-attachments/assets/b79e0e17-579d-4714-bb26-5d6e1c60b9d5)
+#### 6) Menambahkan CPU dan RAM
 ![4  menambahkan cpu dan ram](https://github.com/user-attachments/assets/72b260c2-d35d-4e45-91b9-d2792c3b2037)
-### 7) View Active Jobs
+#### 7) View Active Jobs
 ![5  active jobs](https://github.com/user-attachments/assets/4130c3eb-23d9-46c0-b82a-96a62539f7f3)
-### 8) Isi dari core.log (CPU)
+#### 8) Isi dari core.log (CPU)
 ![6  core log](https://github.com/user-attachments/assets/540abe07-fea3-45b0-a68c-c0d4f30dd7b9)
-### 9) Isi dari fragment.log (RAM)
+#### 9) Isi dari fragment.log (RAM)
 ![6  frag log](https://github.com/user-attachments/assets/3792ceb3-8dcf-4b07-bb55-3bb337e00782)
 
 ## Soal 3
@@ -643,6 +642,17 @@ echo -ne "\r$(date '+%Y-%m-%d %H:%M:%S')"
 ```
 dengan karakter return atau ``\r`` agar waktu update di satu baris tanpa bergeser
 ### Dokumentasi
+#### 1) Output Speak to Me
+![1  speak to me](https://github.com/user-attachments/assets/5b72b9fb-3e3c-4ab1-9642-2e2563c2cc72)
+#### 2) Output On the Run
+![2  on the run](https://github.com/user-attachments/assets/f7d0f12a-3425-4870-855d-739f2246d0a2)
+#### 3) Output Time
+![3  time](https://github.com/user-attachments/assets/46b3edc3-198a-4d3d-ab12-0b37e0f72f5f)
+#### 4) Output Money
+![4  money](https://github.com/user-attachments/assets/88e188ac-e78e-4688-b394-3022bb6284f5)
+#### 5) Brain Damage
+![5  brain damage](https://github.com/user-attachments/assets/22abfbb7-f010-4bbf-b674-04a3096ee2df)
+
 ## Soal 4
 ### Oleh: Revalina Erica Permatasari
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/f5159058-e5e0-4776-a9bc-31f996685a1e" />
