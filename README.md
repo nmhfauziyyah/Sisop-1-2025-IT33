@@ -601,8 +601,7 @@ Pastikan program yang anda buat mengecek semua kesalahan pengguna agar dapat mem
 
 Salah satu contoh output
 
-<img width="542" alt="image" src="https://github.com/user-attachments/assets/5f24d530-45da-4d09-a4ee-910f4d70bbbe" />
-
+<img width="536" alt="image" src="https://github.com/user-attachments/assets/02f5e404-7588-435c-9d2f-fbf266984165" />
 
 #### f.) Help screen yang menarik
 Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk membuat sebuah help screen yang muncul ketika mengetik -h atau --help sebagai command yang dijalankan. Kriteria yang harus ada dalam help screen pada program ini adalah:
@@ -613,7 +612,7 @@ Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk m
 
 Output
 
-<img width="536" alt="image" src="https://github.com/user-attachments/assets/02f5e404-7588-435c-9d2f-fbf266984165" />
+![Screenshot 2025-03-19 152912](https://github.com/user-attachments/assets/7436e59f-3f4a-4cae-9082-f55642725536)
 
 #### Kendala
 Kendala saat searching nama Pokemon, yaitu nama type pokemon sempat muncul
