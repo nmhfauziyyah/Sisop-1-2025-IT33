@@ -158,7 +158,7 @@ password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 ## E. The Brutality of Glass
 Setelah sukses login, "Player" perlu memiliki akses ke sistem pemantauan sumber daya. Sistem harus dapat melacak penggunaan **CPU (dalam persentase)** yang menjadi representasi “Core” di dunia “Arcaea”. Pastikan kalian juga bisa melacak “terminal” yang digunakan oleh “Player”, yaitu **CPU Model dari device mereka.** 
 Lokasi shell script: ``./scripts/core_monitor.sh``
-# Penyelesaian
+### Penyelesaian
 ```
 #!/bin/bash
 
