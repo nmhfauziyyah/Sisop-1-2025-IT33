@@ -551,7 +551,7 @@ Output
 
 Membuat fitur filter berdasarkan Type sebuah Pokemon. Output harus sesuai dengan format csv yang diberikan dengan sort Usage%
 
-<img width="657" alt="image" src="https://github.com/user-attachments/assets/92f5f934-14cb-494b-b031-18a16c8273c4" />
+<img width="702" alt="image" src="https://github.com/user-attachments/assets/b3ab12e9-7547-4cde-9219-f143514d68bc" />
 
 - ``awk -F, -v type="$option" '$4 == type || $5 == type'`` Memfilter data berdasarkan tipe Pokemon (kolom ke-4 atau ke-5).
 - ``sort -t, -k2 -nr`` Mengurutkan hasil filter berdasarkan kolom Usage%.
@@ -590,7 +590,7 @@ Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk m
 
 Output
 
-<img width="800" alt="image" src="https://github.com/user-attachments/assets/a99e54fd-16c3-4260-9184-fea093f46382" />
+<img width="536" alt="image" src="https://github.com/user-attachments/assets/02f5e404-7588-435c-9d2f-fbf266984165" />
 
 #### Kendala
 Kendala saat searching nama Pokemon, yaitu nama type pokemon sempat muncul
