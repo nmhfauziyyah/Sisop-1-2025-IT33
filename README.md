@@ -493,23 +493,23 @@ Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 ```
 - Lalu saya lanjut restart cron dengan ``sudo service cron restart`` [Solve] <br>
 ### Dokumentasi
-1) Tampilan ``terminal.sh``
+### 1. Tampilan `terminal.sh`
 ![1  terminal](https://github.com/user-attachments/assets/554880f2-2fcb-4b25-b4a8-40deebf61553)
-2) Tampilan jika memilih opsi 1 (register)
+### 2) Tampilan jika memilih opsi 1 (register)
 ![2  register](https://github.com/user-attachments/assets/63dc9d02-bd12-4430-a294-55f22dcafbbd)
-3) Data dari register akan tersimpan di data/player.csv
+### 3) Data dari register akan tersimpan di data/player.csv
 ![2  data](https://github.com/user-attachments/assets/7a1e415e-2969-4fb5-bfc3-52b26b08c4e5)
-4) Tampilan login
+### 4) Tampilan login
 ![3  login](https://github.com/user-attachments/assets/d17688e0-097f-4047-b55e-c55b2d1d386a)
-5) Tampilan berhasil login lalu masuk ke crontab menu
+### 5) Tampilan berhasil login lalu masuk ke crontab menu
 ![3  login berhasil crontab menu](https://github.com/user-attachments/assets/7176b9db-bcd7-40ee-b4d4-041849e41fd3)
-6) Menambahkan CPU dan RAM
+### 6) Menambahkan CPU dan RAM
 ![4  menambahkan cpu dan ram](https://github.com/user-attachments/assets/72b260c2-d35d-4e45-91b9-d2792c3b2037)
-7) View Active Jobs
+### 7) View Active Jobs
 ![5  active jobs](https://github.com/user-attachments/assets/4130c3eb-23d9-46c0-b82a-96a62539f7f3)
-8) Isi dari core.log (CPU)
+### 8) Isi dari core.log (CPU)
 ![6  core log](https://github.com/user-attachments/assets/540abe07-fea3-45b0-a68c-c0d4f30dd7b9)
-9) Isi dari fragment.log (RAM)
+### 9) Isi dari fragment.log (RAM)
 ![6  frag log](https://github.com/user-attachments/assets/3792ceb3-8dcf-4b07-bb55-3bb337e00782)
 
 ## Soal 3
