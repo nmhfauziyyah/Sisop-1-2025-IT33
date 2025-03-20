@@ -451,6 +451,36 @@ Kembali ke Crontab Manager? (y/n):
 Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop. <br>
 ``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).<br>
 
+## Kendala
+**[1] Path file di dalam script tidak konsisten** <br>
+Ingin menggunakan path simple ``./`` tetapi tidak bisa saat dijalankan cron karena cron tidak tahu direktori kerjanya. <br>
+**Solusi:** Mengubah semua path menjadi path absolut. Contoh: ``/home/username/Sisop-1-2025-IT33/logs/fragment.log.``[Solve] <br>
+**[2] Membuat script monitoring log dengan cron**
+- Script tidak berjalan otomatis lewat crontab. <br>
+- Log tidak masuk ke file karena path relatif ``./logs`` tidak dikenali
+  saat crontab berjalan. <br> 
+**Solusi**: Akhirnya saya mengganti path pada script menjadi path absolut (dari /home/...) seperti poin 1 supaya cron dapat mengeksekusi dengan benar. [Solve] <br>
+**[3] Menjadwalkan monitoring CPU dan RAM secara otomatis** <br>
+- Crontab tidak menulis ke log karena kesalahan pada permission dan
+  environment cron yang berbeda dari terminal biasa. <br>
+**Solusi:** <br>
+- Ternyata saya belum memberikan permission, akhirnya saya memberikan
+  permission ``chmod +x`` pada script. [Solve] <br>
+- Menggunakan path absolut pada semua script dan file log. [Solve] <br>
+**[4] Cron job tidak jalan per menit** <br>
+Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
+**Solusi:** <br>
+- Akhirnya saya check crontab dengan ``crontab -e`` dan memastikan syntax cron job benar: [Solve] <br>
+```
+* * * * * /bin/bash /home/username/Sisop-1-2025-IT33/scripts/frag_monitor.sh
+```
+- Lalu saya lanjut restart cron dengan ``sudo service cron restart`` [Solve] <br>
+**[5] Bingung kenapa tidak muncul output log** <br>
+Cron tidak menampilkan error apa pun, dan log tidak bertambah.<br>
+**Solusi:** <br>
+- Mengecek log cron dengan ``grep CRON /var/log/syslog`` untuk melihat
+  error. <br>
+- Memastikan script sudah ``chmod +x``. <br>
 ## Soal 3
 ### Oleh: 
 
