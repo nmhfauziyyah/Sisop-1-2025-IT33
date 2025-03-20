@@ -458,7 +458,7 @@ Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, 
 ### Oleh: Revalina Erica Permatasari
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/f5159058-e5e0-4776-a9bc-31f996685a1e" />
 
-- ``$#`` adalah variabel khusus di Bash yang menyimpan jumlah argumen yang diberikan saat script dijalankan. Jika jumlah argumen kurang dari 2 ``(-lt 2)``, script akan menampilkan pesan error dan keluar (exit 1). Jadi dia memastikan user memberikan minimal 2 argumen: <file_name> (pokemon_usage.csv) dan <command> (seperti: -i, -h. dan lainnya).
+- ``$#`` adalah variabel khusus di Bash yang menyimpan jumlah argumen yang diberikan saat script dijalankan. Jika jumlah argumen kurang dari 2 (``-lt 2``), script akan menampilkan pesan error dan keluar (``exit 1``). Jadi dia memastikan user memberikan minimal 2 argumen: <file_name> (pokemon_usage.csv) dan <command> (seperti: ``-i``, ``-h``, dan lainnya).
 - ``$0`` adalah nama script yang sedang dijalankan, yaitu pokemon_analysis.sh
 - ``$1`` adalah nama file yang akan diproses, yaitu pokemon_usage.csv.
 - ``$2`` adalah perintah yang akan dieksekusi (misal: ``-i``, ``--filter``).
@@ -514,6 +514,7 @@ Output
 Membuat fitur filter berdasarkan Type sebuah Pokemon. Output harus sesuai dengan format csv yang diberikan dengan sort Usage%
 
 <img width="657" alt="image" src="https://github.com/user-attachments/assets/92f5f934-14cb-494b-b031-18a16c8273c4" />
+
 - ``awk -F, -v type="$option" '$4 == type || $5 == type'`` Memfilter data berdasarkan tipe Pokemon (kolom ke-4 atau ke-5).
 - ``sort -t, -k2 -nr`` Mengurutkan hasil filter berdasarkan kolom Usage%.
 
@@ -538,10 +539,9 @@ Pastikan program yang anda buat mengecek semua kesalahan pengguna agar dapat mem
 <img width="682" alt="image" src="https://github.com/user-attachments/assets/7447e81c-bc01-493f-9438-18becade28ac" />
 
 Salah satu contoh output
+<img width="542" alt="image" src="https://github.com/user-attachments/assets/5f24d530-45da-4d09-a4ee-910f4d70bbbe" />
 
-<img width="557" alt="image" src="https://github.com/user-attachments/assets/b5323eba-9d8b-4d0d-a48d-f351b74c7cc7" />
-
-f.) Help screen yang menarik
+#### f.) Help screen yang menarik
 Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk membuat sebuah help screen yang muncul ketika mengetik -h atau --help sebagai command yang dijalankan. Kriteria yang harus ada dalam help screen pada program ini adalah:
 - ASCII Art yang menarik! Gunakan kreativitas anda untuk mencari/membuat art yang cocok untuk program yang sudah anda buat!
 - Penjelasan setiap command dan sub-command
