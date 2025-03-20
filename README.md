@@ -13,7 +13,7 @@
 
 ## Soal 1 
 ### Oleh : Kaisar Hanif Pratama
-a.) Pada soal 1 bagian a ini, Poppo ingin mencari tahu jumlah buku yang dibaca oleh Chris Hemsworth.
+#### a.) Pada soal 1 bagian a ini, Poppo ingin mencari tahu jumlah buku yang dibaca oleh Chris Hemsworth.
 
 ![1a](https://github.com/user-attachments/assets/7a5d085b-d521-4b44-a48a-0d88a4a5f4a2)
 
@@ -21,7 +21,7 @@ Lalu akan memberikan output seperti ini
 
 ![3  Hasil 1](https://github.com/user-attachments/assets/195c8d3e-0028-496b-ae26-32c9f9e5eaa3)
 
-b.) Disini Poppo ingin tahu rata-rata durasi membaca menggunakan tablet.
+#### b.) Disini Poppo ingin tahu rata-rata durasi membaca menggunakan tablet.
 
 ![1b](https://github.com/user-attachments/assets/fd9990a4-40c7-4d63-a04e-69321d7a4479)
 
@@ -29,7 +29,7 @@ Dan outputnya seperti ini
 
 ![3  Hasil 2](https://github.com/user-attachments/assets/7d4c905a-8e72-46dc-9df0-46d2e32419d0)
 
-c. Pada bagian c ini Siroyo ingin mencari rating tertinggi buku yang dibaca beserta Nama dan judul bukunya
+#### c. Pada bagian c ini Siroyo ingin mencari rating tertinggi buku yang dibaca beserta Nama dan judul bukunya
 
 ![1c](https://github.com/user-attachments/assets/f0c9834f-8fe9-4b3e-9ca4-848ac15fc4e6)
 
@@ -37,13 +37,19 @@ Outputnya
 
 ![3  Hasil 3](https://github.com/user-attachments/assets/35cb1c3d-d8f8-4beb-8714-8ec5cc0aa824)
 
-d. Siroyo ingin menganalisis data untuk menemukan genre yang paling sering dibaca di Asia setelah 31 Desember 2023 beserta jumlahnya
+#### d. Siroyo ingin menganalisis data untuk menemukan genre yang paling sering dibaca di Asia setelah 31 Desember 2023 beserta jumlahnya
 
 ![1d](https://github.com/user-attachments/assets/a6f141ab-ad3a-4104-98a8-63a8930e6c8c)
 
 Output
 
 ![3  Hasil 4](https://github.com/user-attachments/assets/724b1f8f-cbcb-4b98-bd61-efb7b64d54d7)
+
+#### Kendala
+
+Kendala saat menginstall file CSV
+
+![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
 
 ## Soal 2
 ### Oleh : Ni'mah Fauziyyah A
@@ -574,6 +580,7 @@ Salah satu contoh output
 
 <img width="542" alt="image" src="https://github.com/user-attachments/assets/5f24d530-45da-4d09-a4ee-910f4d70bbbe" />
 
+
 #### f.) Help screen yang menarik
 Untuk memberikan petunjuk yang baik pada pengguna program, anda berpikir untuk membuat sebuah help screen yang muncul ketika mengetik -h atau --help sebagai command yang dijalankan. Kriteria yang harus ada dalam help screen pada program ini adalah:
 - ASCII Art yang menarik! Gunakan kreativitas anda untuk mencari/membuat art yang cocok untuk program yang sudah anda buat!
@@ -585,17 +592,10 @@ Output
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/a99e54fd-16c3-4260-9184-fea093f46382" />
 
-### Kendala
-## Soal 1
-Kendala saat menginstall file CSV
-
-![2  Kendala Download](https://github.com/user-attachments/assets/be738921-69bf-4ed8-a154-e8045eb1b471)
-
-## Soal 4
+#### Kendala
 Kendala saat searching nama Pokemon, yaitu nama filter sempat muncul
 
 <img width="638" alt="image" src="https://github.com/user-attachments/assets/cbb9c6f7-afd8-4463-ab21-ad53f0076c84" />
 
 Tetapi sudah kami temukan solusinya yaitu pada bagian ``grep -i "$option"``, jika seperti ini maka objek dari semua kolom dapat ditampilkan.
 Maka ``grep -i "$^option"`` adalah solusinya, agar yang program hanya fokus pada kolom pertama saja, yaitu kolom untuk nama-nama Pokemon.
-
