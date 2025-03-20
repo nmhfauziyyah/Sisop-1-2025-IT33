@@ -469,7 +469,13 @@ Akhirnya saya mengganti path pada script menjadi path absolut (dari /home/...) s
 - Ternyata saya belum memberikan permission, akhirnya saya memberikan
   permission ``chmod +x`` pada script. [Solve] <br>
 - Menggunakan path absolut pada semua script dan file log. [Solve] <br>
-## [4] Cron job tidak jalan per menit
+## [4] Bingung kenapa tidak muncul output log
+Cron tidak menampilkan error apa pun, dan log tidak bertambah.<br>
+## Solusi:
+- Mengecek log cron dengan ``grep CRON /var/log/syslog`` untuk melihat
+  error. [Solve] <br>
+- Memastikan script sudah ``chmod +x``. [Solve] <br>
+## [5] Cron job tidak jalan per menit
 Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 ## Solusi:
 - Akhirnya saya check crontab dengan ``crontab -e`` dan memastikan syntax cron job benar: [Solve] <br>
@@ -477,12 +483,6 @@ Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
 * * * * * /bin/bash /home/username/Sisop-1-2025-IT33/scripts/frag_monitor.sh
 ```
 - Lalu saya lanjut restart cron dengan ``sudo service cron restart`` [Solve] <br>
-## [5] Bingung kenapa tidak muncul output log
-Cron tidak menampilkan error apa pun, dan log tidak bertambah.<br>
-## Solusi:
-- Mengecek log cron dengan ``grep CRON /var/log/syslog`` untuk melihat
-  error. [Solve] <br>
-- Memastikan script sudah ``chmod +x``. [Solve] <br>
 ## Soal 3
 ### Oleh: 
 
