@@ -58,10 +58,10 @@ Kendala saat menginstall file CSV
 Anda merupakan seorang “Observer”, dari banyak dunia yang dibuat dari ingatan yang berbentuk “fragments” - yang berisi kemungkinan yang dapat terjadi di dunia lain. Namun, akhir-akhir ini terdapat anomali-anomali yang seharusnya tidak terjadi, perpindahan “fragments” di berbagai dunia, yang kemungkinan terjadi dikarenakan seorang “Seeker” yang berubah menjadi “Ascendant”, atau dalam kata lain, “God”. Tidak semua “Observer” menjadi “Player”, tetapi disini anda ditugaskan untuk ikut serta dalam menjaga equilibrium dari dunia-dunia yang terbuat dari “Arcaea”
 ``
 ### Jawaban
-### A. First Step in a New World
+#### A. First Step in a New World
 Tugas pertama, dikarenakan kejadian “Axiom of The End” yang semakin mendekat, diperlukan sistem untuk mencatat “Player” aktif agar terpisah dari “Observer”. Buatlah dua **shell script**, **login.sh dan register.sh**, yang dimana database **“Player” disimpan di /data/player.csv**. Untuk register, parameter yang dipakai yaitu email, username, dan password. Untuk login, parameter yang dipakai yaitu **email dan password.**
-### Penyelesaian
-### Membuat shell script ``register.sh``
+#### Penyelesaian
+##### Membuat shell script ``register.sh``
 ```
 #!/bin/bash
 
@@ -87,7 +87,7 @@ echo "✅ Registrasi Berhasil!"
 ```
 Program diatas diminta untuk input untuk email, username, dan password. Lalu, data akan disimpan ke dalam file data/player.csv dengan command ```echo "$name,$email,$(echo -n "$password" | sha256sum | awk '{print $1}')" >> "$CSV_FILE"```
 
-### Membuat shell script ``login.sh``
+##### Membuat shell script ``login.sh``
 ```
 #!/bin/bash
 
@@ -114,9 +114,9 @@ clear
 ```
 Membuat sistem login yang hanya menerima input email dan password, lalu email dan password tersebut diperiksa apakah cocok dengan data yang ada di file ```data/player.csv```
 
-### B. Radiant Genesis
+#### B. Radiant Genesis
 Sistem login/register untuk para "Player" tentunya memiliki constraint, **yaitu validasi email dan password.** Email harus memiliki format yang benar dengan tanda @ dan titik, sementara password harus memiliki minimal 8 karakter, setidaknya satu huruf kecil, satu huruf besar, dan satu angka untuk menjaga keamanan data di dunia “Arcaea”.
-### Penyelesaian
+#### Penyelesaian
 Validasi email dan password sudah berada di ``register.sh`` :
 ```
 # Validasi email
@@ -132,18 +132,18 @@ Dari kode tersebut terdapat 2 validasi, yaitu :
    ```[[ ${#password} -ge 8 ]] || { echo "❌ Password minimal 8 karakter!"; exit 1; }```
 Kekurangan pada command password : tidak menambahkan syarat huruf besar, kecil, dan angka
 
-### C. Unceasing Spirit
+#### C. Unceasing Spirit
 Karena diperlukan pengecekan keaslian “Player” yang aktif, maka diperlukan sistem untuk pencegahan duplikasi “Player”. **Jadikan sistem login/register tidak bisa memakai email yang sama (email = unique), tetapi tidak ada pengecekan tambahan untuk username.**
-### Penyelesaian
+#### Penyelesaian
 Menambahkan command untuk check tidak boleh memiliki email yang sama pada ```register.sh```
 ```
 grep -q ",$email," "$CSV_FILE" && { echo "❌ Email sudah terdaftar!"; exit 1; }
 ```
 Menggunakan ```grep``` untuk mengambil data dari ```CSV_FILE```
 
-### D. The Eternal Realm of Light
+#### D. The Eternal Realm of Light
 Password adalah kunci akses ke dunia Arcaea. Untuk menjaga keamanan "Player", password perlu disimpan dalam bentuk yang tidak mudah diakses. Gunakan algoritma hashing **sha256sum** yang memakai static salt (bebas).
-### Penyelesaian
+#### Penyelesaian
 Menambahkan command untuk menyimpan password dalam bentuk yang tidak mudah diakses
 ``register.sh``
 Ini langsung menyimpan ke ``CSV_FILE``
@@ -155,10 +155,10 @@ Ini untuk check lagi apakah sudah menggunakan **hashing sha256sum** untuk keraha
 ```
 password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 ```
-## E. The Brutality of Glass
+#### E. The Brutality of Glass
 Setelah sukses login, "Player" perlu memiliki akses ke sistem pemantauan sumber daya. Sistem harus dapat melacak penggunaan **CPU (dalam persentase)** yang menjadi representasi “Core” di dunia “Arcaea”. Pastikan kalian juga bisa melacak “terminal” yang digunakan oleh “Player”, yaitu **CPU Model dari device mereka.** 
 Lokasi shell script: ``./scripts/core_monitor.sh``
-### Penyelesaian
+#### Penyelesaian
 ```
 #!/bin/bash
 
@@ -185,17 +185,19 @@ LOG_FILE="./logs/core.log"
 ```
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 ```
-4) ```
-   CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
-   ```
+4)
+```
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
+```
 - Command ``top -bn1`` menampilkan snapshot sekali (non-interaktif) tentang penggunaan sumber daya.
 - Lalu ``grep "Cpu(s)"`` akan mencari baris yang mengandung informasi CPU.
 - Kolom ke-8 (idle / ``id``) menunjukkan CPU yang tidak dipakai.
 - ``awk '{print 100 - $8}'`` akan menghitung CPU usage dengan mengurangkan 100 - idle.
 - Misal : idle 85.0, berarti CPU usage: 100 - 85.0 = 15%.
-5) ```
-  CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')
-  ```
+5)
+```
+CPU_MODEL=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | sed 's/^[ \t]*//g' | tr -s ' ')
+```
 - Perintah ``lscpu`` menampilkan informasi tentang CPU.
 - ``grep "Model name"`` mengambil baris yang berisi model CPU.
 - ``awk -F ':' '{print $2}'`` memisahkan teks dengan tanda ``:`` dan mengambil bagian kedua (isi modelnya).
@@ -203,16 +205,17 @@ TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 - ``tr -s ' '`` merapikan spasi agar tidak berlebihan.
 - Hasil Akhir akan menampilkan hanya nama prosesor :
   ```Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz```
-6) ```
-  echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
-  ```
+6)
+```
+echo "[${TIMESTAMP}] - Core Usage [${CPU_USAGE}%] - Terminal Model [${CPU_MODEL}]" >> "$LOG_FILE" 2>/dev/null
+```
 - Menuliskan log ke file ``core.log`` dengan format:
 ```[2025-03-20 17:40:52] - Core Usage [15.0%] - Terminal Model [Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz]```
 - ``2>/dev/null`` membuang error output jika ada.
-### F. In Grief and Great Delight
+#### F. In Grief and Great Delight
 Selain CPU, “fragments” juga perlu dipantau untuk memastikan equilibrium dunia “Arcaea”. **RAM** menjadi representasi dari “fragments” di dunia “Arcaea”, yang dimana dipantau **dalam persentase usage, dan juga penggunaan RAM sekarang.** 
 Lokasi shell script: ``./scripts/frag_monitor.sh``
-### Penyelesaian
+#### Penyelesaian
 ```
 #!/bin/bash
 
@@ -228,7 +231,7 @@ AVAILABLE_MEM=$(free -m | awk 'NR==2 {print $7}')  # Memori yang tersedia dalam 
 
 echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRAG_COUNT} MB] -- Details [Total: ${TOTAL_MEM} MB, Available: ${AVAILABLE_MEM} MB]" >> "$LOG_FILE"
 ```
-### Penjelasan
+#### Penjelasan
 1) ``FRAG_USAGE`` Menghitung persentase memori yang digunakan
    ```
    free -m | awk 'NR==2 {printf "%.2f", ($3/$2)*100}
@@ -259,14 +262,14 @@ echo "[${TIMESTAMP}] -- Fragment Usage [${FRAG_USAGE}%] -- Fragment Count [${FRA
    ```
    - Mengambil jumlah memori yang tersedia dari ``free -m`` kolom ke-7.
    - Ex : **3700 MB**
-### G. On Fate's Approach
+#### G. On Fate's Approach
 Pemantauan yang teratur dan terjadwal sangat penting untuk mendeteksi anomali. **Crontab manager (suatu menu)** memungkinkan "Player" untuk mengatur jadwal pemantauan sistem. 
 Hal yang harus ada di fungsionalitas menu: <br>
 **- Add/Remove CPU [Core] Usage** <br>
 **- Add/Remove RAM [Fragment] Usage**<br>
 **- View Active Jobs**<br>
 Lokasi shell script: ``./scripts/manager.sh``
-### Penyelesaian
+#### Penyelesaian
 ```
 #!/bin/bash
 
@@ -318,7 +321,7 @@ while true; do
     echo ""
 done
 ```
-### Penjelasan
+#### Penjelasan
 ``1)`` Menambahkan monitoring CPU ke ``crontab``, supaya script ``core_monitor.sh`` dijalankan setiap menit.
    ```
    (crontab -l; echo "* * * * * bash $(pwd)/scripts/core_monitor.sh >> $LOG_DIR/core.log") | crontab -
@@ -362,9 +365,9 @@ echo "⚠️ Pilihan tidak valid, silakan pilih kembali."
 ```
 Akan muncul peringatan bahwa input tidak valid.
 
-### H. The Disfigured Flow of Time
+#### H. The Disfigured Flow of Time
 Karena tentunya script yang dimasukkan ke crontab tidak mengeluarkan output di terminal, buatlah 2 log file, core.log dan fragment.log di folder ./log/, yang dimana masing-masing terhubung ke program usage monitoring untuk usage tersebut. 
-### Format log :
+#### Format log :
 - CPU 
 ```
 [YYYY-MM-DD HH:MM:SS] - Core Usage [$CPU%] - Terminal Model [$CPU_Model]
@@ -373,8 +376,8 @@ Karena tentunya script yang dimasukkan ke crontab tidak mengeluarkan output di t
 ```
 [YYYY-MM-DD HH:MM:SS] - Fragment Usage [$RAM%] - Fragment Count [$RAM MB] - Details [Total: $TOTAL MB, Available: $AVAILABLE MB]
 ```
-### Penyelesaian
-### CPU
+#### Penyelesaian
+#### CPU
 Pada script ``core_monitor.sh``, baris :
 ```
 LOG_FILE="./logs/core.log"
@@ -386,7 +389,7 @@ Berfungsi untuk mencatat hasil monitoring CPU ke dalam file log.
 - Setiap baris log berisi timestamp, persentase penggunaan CPU, dan model CPU yang digunakan.
 - ``>>`` digunakan untuk menambahkan baris ke akhir file log tanpa menghapus isi sebelumnya.
 - ``2>/dev/null`` digunakan untuk membuang pesan error jika ada.
-### RAM
+#### RAM
 Pada script ``frag_monitor.sh``, baris :
 ```
 LOG_FILE="./logs/fragment.log"
@@ -397,14 +400,14 @@ Berfungsi untuk mencatat hasil monitoring memori (RAM) ke dalam file log.
 - Output akan disimpan ke file ``fragment.log`` yang berada di direktori ``./logs/``.
 - Setiap baris log berisi waktu pencatatan, persentase penggunaan memori (``FRAG_USAGE``), ukuran fragmentasi (``FRAG_COUNT`` dalam MB), total memori yang tersedia (``TOTAL_MEM``), dan memori yang masih bisa dipakai (``AVAILABLE_MEM``).
 - ``>>`` digunakan untuk menambahkan baris log baru tanpa menghapus isi sebelumnya.
-### I. Irruption of New Color
+#### I. Irruption of New Color
 Sistem harus memiliki antarmuka utama yang menggabungkan semua komponen. Ini akan menjadi titik masuk bagi "Player" untuk mengakses seluruh sistem. Buatlah shell script **terminal.sh**, yang berisi user flow berikut: <br> 
 - Register
 - Login
   - Crontab manager (add/rem core & fragment usage)
   - Exit
 - Exit
-### Penyelesaian
+#### Penyelesaian
 ```
 #!/bin/bash
 
@@ -441,7 +444,7 @@ while true; do
     esac
 done
 ```
-### Penjelasan
+#### Penjelasan
 ``case $main_choice in`` digunakan untuk menangkap input user dari variabel main_choice (hasil dari ``read -p "Pilih opsi: "``). Kemudian dijalankan sesuai pilihan: <br>
 ``1)`` Jika user memilih 1, maka script akan menjalankan ``register.sh``.<br>
 User akan diarahkan ke proses registrasi.<br>
@@ -457,33 +460,33 @@ Kembali ke Crontab Manager? (y/n):
 Jika user mengetik ``y``, maka akan kembali lagi ke ``manager.sh``. Jika tidak, keluar dari loop. <br>
 ``3)``Jika user memilih 3, script akan menjalankan ``exit`` (keluar dari program).<br>
 
-## Kendala
-## [1] Path file di dalam script tidak konsisten
+### Kendala
+#### [1] Path file di dalam script tidak konsisten
 Ingin menggunakan path simple ``./`` tetapi tidak bisa saat dijalankan cron karena cron tidak tahu direktori kerjanya. <br>
-## Solusi: Mengubah semua path menjadi path absolut. 
+##### Solusi: Mengubah semua path menjadi path absolut. 
 Contoh: ``/home/username/Sisop-1-2025-IT33/logs/fragment.log.``[Solve] <br>
-## [2] Membuat script monitoring log dengan cron
+#### [2] Membuat script monitoring log dengan cron
 - Script tidak berjalan otomatis lewat crontab. <br>
 - Log tidak masuk ke file karena path relatif ``./logs`` tidak dikenali
   saat crontab berjalan. <br> 
-## Solusi : 
+##### Solusi : 
 Akhirnya saya mengganti path pada script menjadi path absolut (dari /home/...) seperti poin 1 supaya cron dapat mengeksekusi dengan benar. [Solve] <br>
-## [3] Menjadwalkan monitoring CPU dan RAM secara otomatis
+#### [3] Menjadwalkan monitoring CPU dan RAM secara otomatis
 - Crontab tidak menulis ke log karena kesalahan pada permission dan
   environment cron yang berbeda dari terminal biasa. <br>
-## Solusi:
+##### Solusi:
 - Ternyata saya belum memberikan permission, akhirnya saya memberikan
   permission ``chmod +x`` pada script. [Solve] <br>
 - Menggunakan path absolut pada semua script dan file log. [Solve] <br>
-## [4] Bingung kenapa tidak muncul output log
+#### [4] Bingung kenapa tidak muncul output log
 Cron tidak menampilkan error apa pun, dan log tidak bertambah.<br>
-## Solusi:
+##### Solusi:
 - Mengecek log cron dengan ``grep CRON /var/log/syslog`` untuk melihat
   error. [Solve] <br>
 - Memastikan script sudah ``chmod +x``. [Solve] <br>
-## [5] Cron job tidak jalan per menit
+#### [5] Cron job tidak jalan per menit
 Cron hanya jalan sekali atau tidak jalan sama sekali. <br>
-## Solusi:
+##### Solusi:
 - Akhirnya saya check crontab dengan ``crontab -e`` dan memastikan syntax cron job benar: [Solve] <br>
 ```
 * * * * * /bin/bash /home/username/Sisop-1-2025-IT33/scripts/frag_monitor.sh
